@@ -3,7 +3,7 @@ import { HiDotsVertical } from 'react-icons/hi'
 
 export function TaskListMenu() {
   return (
-    <Menu>
+    <Menu placement='bottom-end'>
       <MenuButton
         as={IconButton}
         aria-label='Options'

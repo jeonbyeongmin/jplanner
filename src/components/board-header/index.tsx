@@ -37,6 +37,7 @@ export function BoardHeader() {
   return (
     <Flex
       bgColor='white'
+      w='full'
       h={16}
       borderBottom='1px'
       borderColor='gray.200'

@@ -17,6 +17,9 @@ export function Task({ id, name, description, completed }: TaskProps) {
       borderColor='gray.200'
       _hover={{ bgColor: 'gray.100' }}
       userSelect='none'
+      cursor='pointer'
+      w='full'
+      mb={4}
     >
       <Text noOfLines={4}>{name}</Text>
     </Flex>

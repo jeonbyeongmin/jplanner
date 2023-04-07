@@ -17,7 +17,7 @@ export function Layout({ children }: LayoutProps) {
     <>
       <SEO />
       <Flex className={notoSans.className} w='full' h='full' overflow='hidden' position='relative'>
-        <Flex bgColor='white' w='72' direction='column'>
+        <Flex bgColor='white' w='72' minW='72' direction='column'>
           <Sidebar />
         </Flex>
 
