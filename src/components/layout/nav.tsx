@@ -1,4 +1,5 @@
 import { NavItem } from '@/components/layout/nav-item'
+import { getPlannerRoute } from '@/utils/routes'
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
@@ -6,7 +7,12 @@ export function Nav() {
   const router = useRouter()
 
   const handleMoveToPlan = (planID: string) => {
-    router.push(planID)
+    router.push(getPlannerRoute(planID))
+  }
+
+  // TODO: store current planID in context
+  const isCurrent = (id: string) => {
+    return router.query.id === id
   }
 
   return (
@@ -18,10 +24,11 @@ export function Nav() {
       marginX='-2'
       paddingLeft={2}
       paddingRight={1}
-      _hover={{ opacity: '1' }}
+      visibility='hidden'
+      _hover={{ visibility: 'visible' }}
     >
       {navItems.map(({ planID, label }) => (
-        <NavItem key={planID} content={label} onClick={() => handleMoveToPlan(planID)} />
+        <NavItem key={planID} content={label} onClick={() => handleMoveToPlan(planID)} isCurrent={isCurrent(planID)} />
       ))}
     </Flex>
   )
@@ -29,111 +36,111 @@ export function Nav() {
 
 const navItems = [
   {
-    planID: 'inbox',
-    label: 'Study React',
+    planID: '1',
+    label: 'StudyStudyStudyStasdasdud asdasdasdadas',
   },
   {
-    planID: 'today',
+    planID: '2',
     label: 'Study Chakra',
   },
   {
-    planID: 'next',
+    planID: '3',
     label: 'Study Next',
   },
   {
-    planID: 'scheduled',
+    planID: '4',
     label: 'Study TypeScript',
   },
   {
-    planID: 'logbook',
+    planID: '5',
     label: 'Study GraphQL',
   },
   {
-    planID: 'projects',
+    planID: '6',
     label: 'Study Apollo',
   },
   {
-    planID: 'inbox2',
+    planID: '7',
     label: 'Study React',
   },
   {
-    planID: 'today2',
+    planID: '8',
     label: 'Study Chakra',
   },
   {
-    planID: 'next2',
+    planID: '9',
     label: 'Study Next',
   },
   {
-    planID: 'scheduled2',
+    planID: '10',
     label: 'Study TypeScript',
   },
   {
-    planID: 'logbook2',
+    planID: '11',
     label: 'Study GraphQL',
   },
   {
-    planID: 'projects2',
+    planID: '12',
     label: 'Study Apollo',
   },
   {
-    planID: 'inbox3',
+    planID: '13',
     label: 'Study React',
   },
   {
-    planID: 'today3',
+    planID: '14',
     label: 'Study Chakra',
   },
   {
-    planID: 'next3',
+    planID: '15',
     label: 'Study Next',
   },
   {
-    planID: 'scheduled3',
+    planID: '16',
     label: 'Study TypeScript',
   },
   {
-    planID: 'logbook3',
+    planID: '17',
     label: 'Study GraphQL',
   },
   {
-    planID: 'projects3',
+    planID: '18',
     label: 'Study Apollo',
   },
   {
-    planID: 'inbox23',
+    planID: '19',
     label: 'Study React',
   },
   {
-    planID: 'today23',
+    planID: '20',
     label: 'Study Chakra',
   },
   {
-    planID: 'next23',
+    planID: '21',
     label: 'Study Next',
   },
   {
-    planID: 'scheduled23',
+    planID: '22',
     label: 'Study TypeScript',
   },
   {
-    planID: 'logbook23',
+    planID: '23',
     label: 'Study GraphQL',
   },
   {
-    planID: 'projects23',
+    planID: '24',
     label: 'Study Apollo',
   },
   {
-    planID: 'inbox4',
+    planID: '25',
     label: 'Study React',
   },
   {
-    planID: 'today4',
+    planID: '26',
     label: 'Study Chakra',
   },
   {
-    planID: 'next4',
+    planID: '27',
     label: 'Study Next',
   },
 ]

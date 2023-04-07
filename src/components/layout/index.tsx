@@ -1,3 +1,4 @@
+import Header from '@/components/layout/header'
 import { SEO } from '@/components/layout/seo'
 import { Sidebar } from '@/components/layout/sidebar'
 import { Flex } from '@chakra-ui/react'
@@ -24,15 +25,16 @@ export function Layout({ children }: LayoutProps) {
         <Flex h='full' maxW='full' flex='1' direction='column'>
           <Flex
             as='main'
-            bgColor='gray.50'
-            position='relative'
             w='full'
             h='full'
-            direction='column'
-            overflow='hidden'
-            alignItems='stretch'
             flex='1'
+            bgColor='gray.50'
+            overflow='hidden'
+            direction='column'
+            position='relative'
+            alignItems='stretch'
           >
+            <Header />
             {children}
           </Flex>
         </Flex>
