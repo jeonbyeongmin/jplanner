@@ -1,4 +1,3 @@
-import Header from '@/components/layout/header'
 import { SEO } from '@/components/layout/seo'
 import { Sidebar } from '@/components/layout/sidebar'
 import { Flex } from '@chakra-ui/react'
@@ -18,7 +17,7 @@ export function Layout({ children }: LayoutProps) {
     <>
       <SEO />
       <Flex className={notoSans.className} w='full' h='full' overflow='hidden' position='relative'>
-        <Flex bgColor='white' w='64' direction='column'>
+        <Flex bgColor='white' w='72' direction='column'>
           <Sidebar />
         </Flex>
 
@@ -28,13 +27,12 @@ export function Layout({ children }: LayoutProps) {
             w='full'
             h='full'
             flex='1'
-            bgColor='gray.50'
+            bgColor='gray.100'
             overflow='hidden'
             direction='column'
             position='relative'
             alignItems='stretch'
           >
-            <Header />
             {children}
           </Flex>
         </Flex>

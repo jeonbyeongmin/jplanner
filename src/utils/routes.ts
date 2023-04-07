@@ -1,2 +1,2 @@
 export const getLoginRoute = () => '/login'
-export const getPlannerRoute = (id: string) => `/planner/${id}`
+export const getBoardRoute = (id: string) => `/board/${id}`
