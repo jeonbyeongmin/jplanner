@@ -1,7 +1,7 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { HiDotsVertical } from 'react-icons/hi'
 
-export function HeaderMenu() {
+export function BoardHeaderMenu() {
   return (
     <Menu>
       <MenuButton
@@ -13,8 +13,10 @@ export function HeaderMenu() {
         fontSize={20}
       />
       <MenuList>
-        <MenuItem command='⌘T'>Edit title</MenuItem>
-        <MenuItem command='⌘N'>Move to archive</MenuItem>
+        <MenuItem>Edit title</MenuItem>
+        <MenuItem>Move to archive</MenuItem>
+        <MenuItem>Delete this board</MenuItem>
+        <MenuItem>Delete this plan</MenuItem>
       </MenuList>
     </Menu>
   )

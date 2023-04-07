@@ -1,5 +1,5 @@
 import { NavItem } from '@/components/layout/nav-item'
-import { getPlannerRoute } from '@/utils/routes'
+import { getBoardRoute } from '@/utils/routes'
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
@@ -7,7 +7,7 @@ export function Nav() {
   const router = useRouter()
 
   const handleMoveToPlan = (planID: string) => {
-    router.push(getPlannerRoute(planID))
+    router.push(getBoardRoute(planID))
   }
 
   // TODO: store current planID in context
@@ -37,7 +37,7 @@ export function Nav() {
 const navItems = [
   {
     planID: '1',
-    label: 'StudyStudyStudyStasdasdud asdasdasdadas',
+    label: '계획 제목을 입력하고 Enter를 누르면 저장됩니다. 취소하려면 다른 곳을 클릭해주세요',
   },
   {
     planID: '2',

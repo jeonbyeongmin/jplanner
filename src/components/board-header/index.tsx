@@ -1,10 +1,10 @@
-import { HeaderMenu } from '@/components/layout/header-menu'
-import { Flex, IconButton, Input, Text, Tooltip } from '@chakra-ui/react'
+import { BoardHeaderMenu } from '@/components/board-header/board-header-menu'
+import { Button, Flex, IconButton, Input, Text, Tooltip } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { HiPlus } from 'react-icons/hi'
 
-export default function Header() {
+export function BoardHeader() {
   const router = useRouter()
 
   // TODO: title, editmode 상태관리
@@ -46,38 +46,48 @@ export default function Header() {
       gap={5}
     >
       {isEdit ? (
-        <Input
-          variant='unstyled'
-          defaultValue={title}
-          onBlur={handleModeChange}
-          onChange={handleTitle}
-          onKeyDown={handleEnterKeyDown}
-          autoFocus
-        />
+        <Flex flex={1} gap={2}>
+          <Input
+            variant='outline'
+            defaultValue={title}
+            onBlur={handleModeChange}
+            onChange={handleTitle}
+            onKeyDown={handleEnterKeyDown}
+            fontSize='xl'
+            fontWeight='bold'
+            p={2}
+            autoFocus
+          />
+          <Button>확인</Button>
+          <Button>취소</Button>
+        </Flex>
       ) : (
-        <Text
-          fontSize='xl'
-          fontWeight='bold'
-          cursor='pointer'
-          userSelect='none'
-          onClick={handleModeChange}
-          noOfLines={1}
-        >
-          {title}
-        </Text>
+        <Flex p={2} _hover={{ bgColor: 'gray.50' }} borderRadius='md'>
+          <Text
+            fontSize='xl'
+            fontWeight='bold'
+            cursor='pointer'
+            userSelect='none'
+            onClick={handleModeChange}
+            noOfLines={1}
+            color='blackAlpha.900'
+          >
+            {title}
+          </Text>
+        </Flex>
       )}
       <Flex gap={2}>
-        <Tooltip label='Add new list'>
+        <Tooltip label='Add new task list'>
           <IconButton aria-label='Add' icon={<HiPlus />} variant='outline' fontSize={20} color='gray.500' />
         </Tooltip>
-        <HeaderMenu />
+        <BoardHeaderMenu />
       </Flex>
     </Flex>
   )
 }
 
 const headerTitleData = [
-  { id: '1', title: 'Plan Title1' },
+  { id: '1', title: '계획 제목을 입력하고 Enter를 누르면 저장됩니다. 취소하려면 다른 곳을 클릭해주세요' },
   { id: '2', title: 'Plan Title2' },
   { id: '3', title: 'Plan Title3' },
   { id: '4', title: 'Plan Title4' },
