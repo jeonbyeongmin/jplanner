@@ -1,5 +1,29 @@
-import { Layout } from '@/components/layout'
+import { GetServerSideProps } from 'next'
 
 export default function Home() {
-  return <Layout>Hello world!</Layout>
+  return {}
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const {} = context
+
+  const user = true // get user from db
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+      props: {},
+    }
+  }
+
+  return {
+    redirect: {
+      destination: '/planner',
+      permanent: false,
+    },
+    props: {},
+  }
 }
