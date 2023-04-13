@@ -10,9 +10,9 @@ interface PlannerDetailProps {
 
 export default function PlannerDetail({ plannerID }: PlannerDetailProps) {
   return (
-    <Flex direction='column' align='start'>
+    <Flex direction='column' align='start' h='full' w='full' flex={1} overflowX='auto'>
       <BoardHeader />
-      <Flex p={5}>
+      <Flex p={5} pt={28}>
         <BoardContent />
       </Flex>
     </Flex>
@@ -20,8 +20,10 @@ export default function PlannerDetail({ plannerID }: PlannerDetailProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params } = context
+  // This is required to prevent the server side rendering from breaking
   resetServerContext()
+
+  const { params } = context
 
   return {
     props: {

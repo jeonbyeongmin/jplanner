@@ -10,7 +10,7 @@ export function BoardHeader() {
   // TODO: title, editmode 상태관리
   const found = headerTitleData.find((item) => item.id === router.query.id)
 
-  const [title, setTitle] = useState<string>(found?.title ?? '')
+  const [title, setTitle] = useState<string>('')
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const handleModeChange = () => {
@@ -37,14 +37,15 @@ export function BoardHeader() {
   return (
     <Flex
       bgColor='white'
-      w='full'
-      h={16}
+      h={20}
       borderBottom='1px'
       borderColor='gray.200'
       px={5}
       align='center'
       justify='space-between'
       gap={5}
+      w='full'
+      position='absolute'
     >
       {isEdit ? (
         <Flex flex={1} gap={2}>
@@ -64,17 +65,19 @@ export function BoardHeader() {
         </Flex>
       ) : (
         <Flex p={2} _hover={{ bgColor: 'gray.50' }} borderRadius='md'>
-          <Text
-            fontSize='xl'
-            fontWeight='bold'
-            cursor='pointer'
-            userSelect='none'
-            onClick={handleModeChange}
-            noOfLines={1}
-            color='blackAlpha.900'
-          >
-            {title}
-          </Text>
+          <Tooltip label={title} openDelay={1000}>
+            <Text
+              fontSize='xl'
+              fontWeight='bold'
+              cursor='pointer'
+              userSelect='none'
+              onClick={handleModeChange}
+              noOfLines={1}
+              color='blackAlpha.900'
+            >
+              {title}
+            </Text>
+          </Tooltip>
         </Flex>
       )}
       <Flex gap={2}>
