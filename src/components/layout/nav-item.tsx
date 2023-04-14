@@ -3,11 +3,10 @@ import { useMemo } from 'react'
 
 interface NavItemProps {
   content: string
-  onClick?: () => void
   isCurrent?: boolean
 }
 
-export function NavItem({ content, onClick, isCurrent }: NavItemProps) {
+export function NavItem({ content, isCurrent }: NavItemProps) {
   const bgColors = useMemo(() => {
     return {
       default: isCurrent ? 'gray.100' : 'white',
@@ -28,10 +27,9 @@ export function NavItem({ content, onClick, isCurrent }: NavItemProps) {
         cursor='pointer'
         userSelect='none'
         position='relative'
-        onClick={onClick}
         visibility='visible'
       >
-        <Flex flex={1} overflow='hidden' wordBreak='break-all' position='relative' noOfLines={1}>
+        <Flex flex={1} overflow='hidden' h={7} wordBreak='break-all' position='relative'>
           {content}
           <Box
             position='absolute'

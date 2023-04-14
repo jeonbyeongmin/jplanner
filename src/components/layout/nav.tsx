@@ -1,14 +1,11 @@
 import { NavItem } from '@/components/layout/nav-item'
 import { getBoardRoute } from '@/utils/routes'
 import { Flex } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export function Nav() {
   const router = useRouter()
-
-  const handleMoveToPlan = (planID: string) => {
-    router.push(getBoardRoute(planID))
-  }
 
   // TODO: store current planID in context
   const isCurrent = (id: string) => {
@@ -28,7 +25,9 @@ export function Nav() {
       _hover={{ visibility: 'visible' }}
     >
       {navItems.map(({ planID, label }) => (
-        <NavItem key={planID} content={label} onClick={() => handleMoveToPlan(planID)} isCurrent={isCurrent(planID)} />
+        <Link key={planID} href={getBoardRoute(planID)}>
+          <NavItem key={planID} content={label} isCurrent={isCurrent(planID)} />
+        </Link>
       ))}
     </Flex>
   )
