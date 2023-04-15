@@ -15,23 +15,12 @@ export const boardTitleMachine = createMachine(
     predictableActionArguments: true,
     schema,
     id: 'boardTitle',
-    initial: 'idle',
+    initial: 'viewing',
     context: {
       pendingTitle: '',
       title: '',
     },
     states: {
-      idle: {
-        on: {
-          INITIATE: {
-            target: 'viewing',
-            actions: assign({
-              title: (_, event) => event.value,
-              pendingTitle: (_, event) => event.value,
-            }),
-          },
-        },
-      },
       viewing: {
         on: {
           EDIT: 'editing',
@@ -47,23 +36,39 @@ export const boardTitleMachine = createMachine(
           SUBMIT: {
             cond: 'hasTitle',
             target: 'viewing',
-            actions: assign({
-              title: (context) => context.pendingTitle,
-            }),
+            actions: 'updateTitle',
           },
           CANCEL: {
             target: 'viewing',
-            actions: assign({
-              pendingTitle: (context) => context.title,
-            }),
+            actions: 'resetPendingTitle',
           },
         },
+      },
+    },
+    on: {
+      INITIATE: {
+        target: 'viewing',
+        actions: [
+          assign({
+            title: (_, event) => event.value,
+            pendingTitle: (_, event) => event.value,
+          }),
+        ],
       },
     },
   },
   {
     guards: {
-      hasTitle: (context) => context.title.length > 0,
+      hasTitle: (context) => context.pendingTitle.length > 0,
+    },
+
+    actions: {
+      updateTitle: assign({
+        title: (context) => context.pendingTitle,
+      }),
+      resetPendingTitle: assign({
+        pendingTitle: (context) => context.title,
+      }),
     },
   },
 )
