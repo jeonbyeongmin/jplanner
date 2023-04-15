@@ -1,0 +1,125 @@
+{
+  "board": [
+    {
+      "id": "board1",
+      "title": "계획 제목을 입력하고 Enter를 누르면 저장됩니다. 취소하려면 다른 곳을 클릭해주세요"
+    },
+    {
+      "id": "board2",
+      "title": "Board 2"
+    },
+    {
+      "id": "board3",
+      "title": "Board 3"
+    }
+  ],
+
+  "taskList": [
+    {
+      "id": "taskList1",
+      "title": "To do",
+      "boardId": "board1",
+      "tasks": [
+        {
+          "id": "task1",
+          "title": "Task 1"
+        },
+        {
+          "id": "task2",
+          "title": "Task 2"
+        },
+        {
+          "id": "task3",
+          "title": "Task 3"
+        }
+      ]
+    },
+    {
+      "id": "taskList2",
+      "title": "In progress",
+      "boardId": "board1",
+      "tasks": [
+        {
+          "id": "task4",
+          "title": "Task 4"
+        },
+        {
+          "id": "task5",
+          "title": "Task 5"
+        },
+        {
+          "id": "task6",
+          "title": "Task 6"
+        }
+      ]
+    },
+    {
+      "id": "taskList3",
+      "title": "Done",
+      "boardId": "board1",
+      "tasks": [
+        {
+          "id": "task7",
+          "title": "Task 7"
+        },
+        {
+          "id": "task8",
+          "title": "Task 8"
+        }
+      ]
+    },
+    {
+      "id": "taskList4",
+      "title": "To do",
+      "boardId": "board2",
+      "tasks": [
+        {
+          "id": "task9",
+          "title": "Task 9"
+        }
+      ]
+    },
+    {
+      "id": "taskList5",
+      "title": "In progress",
+      "boardId": "board2",
+      "tasks": [
+        {
+          "id": "task10",
+          "title": "Task 10"
+        }
+      ]
+    },
+    {
+      "id": "taskList6",
+      "title": "Done",
+      "boardId": "board2",
+      "tasks": [
+        {
+          "id": "task11",
+          "title": "Task 11"
+        },
+        {
+          "id": "task12",
+          "title": "Task 12"
+        },
+        {
+          "id": "task13",
+          "title": "Task 13"
+        },
+        {
+          "id": "task14",
+          "title": "Task 14"
+        },
+        {
+          "id": "task15",
+          "title": "Task 15"
+        },
+        {
+          "id": "task16",
+          "title": "Task 16"
+        }
+      ]
+    }
+  ]
+}
