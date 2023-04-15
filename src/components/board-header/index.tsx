@@ -1,5 +1,5 @@
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu'
-import { boardTitleMachine } from '@/machines/board-title-machine'
+import { boardTitleMachine } from '@/machines/board/board-title-machine'
 import { Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
 import { useMachine } from '@xstate/react'
 import { useEffect, useRef } from 'react'
@@ -64,7 +64,7 @@ export function BoardHeader({ title }: BoardHeaderProps) {
             p={2}
             autoFocus
           />
-          <Button onClick={() => send('SUBMIT')} disabled={!current.can({ type: 'SUBMIT' })}>
+          <Button onClick={() => send('SUBMIT')} isDisabled={!current.can('SUBMIT')}>
             확인
           </Button>
           <Button onClick={() => send('CANCEL')}>취소</Button>
