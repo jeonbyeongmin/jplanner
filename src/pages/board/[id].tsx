@@ -10,8 +10,8 @@ interface BoardDetailProps {
 }
 
 export default function BoardDetail({ boardID }: BoardDetailProps) {
-  const [state] = BoardActorContext.useActor()
-  const title = state.context.boards?.find((board) => board.id === boardID)?.title ?? ''
+  const boards = BoardActorContext.useSelector((state) => state.context.boards)
+  const title = boards?.find((board) => board.id === boardID)?.title ?? ''
 
   return (
     <Flex direction='column' align='start' h='full' w='full' flex={1} overflowX='auto'>

@@ -14,10 +14,6 @@ export function Nav() {
   const { data, error } = useSWR<Board[]>(getBoardsPath())
   const [state, send] = BoardActorContext.useActor()
 
-  const isCurrent = (id: string) => {
-    return router.query.id === id
-  }
-
   useEffect(() => {
     send({
       type: 'UPDATE_DATA',
@@ -40,7 +36,7 @@ export function Nav() {
     >
       {state.context.boards?.map(({ id, title }) => (
         <Link key={id} href={getBoardRoute(id)}>
-          <NavItem key={id} content={title} isCurrent={isCurrent(id)} />
+          <NavItem key={id} content={title} isCurrent={router.query.id === id} />
         </Link>
       ))}
     </Flex>
