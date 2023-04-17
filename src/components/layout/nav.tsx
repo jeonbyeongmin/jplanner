@@ -1,21 +1,30 @@
 import useSWR from 'swr'
 import Link from 'next/link'
-
 import { getBoardsPath } from '@/api/board/get-board'
 import { NavItem } from '@/components/layout/nav-item'
 import { Board } from '@/types/board.type'
 import { getBoardRoute } from '@/utils/routes'
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { BoardActorContext } from '@/contexts/global-state-provider'
 
 export function Nav() {
   const router = useRouter()
-  const { data } = useSWR<Board[]>(getBoardsPath())
+  const { data, error } = useSWR<Board[]>(getBoardsPath())
+  const [state, send] = BoardActorContext.useActor()
 
-  // TODO: store current planID in context
   const isCurrent = (id: string) => {
     return router.query.id === id
   }
+
+  useEffect(() => {
+    send({
+      type: 'UPDATE_DATA',
+      data,
+      error,
+    })
+  }, [data, error, send])
 
   return (
     <Flex
@@ -29,7 +38,7 @@ export function Nav() {
       visibility='hidden'
       _hover={{ visibility: 'visible' }}
     >
-      {data?.map(({ id, title }) => (
+      {state.context.boards?.map(({ id, title }) => (
         <Link key={id} href={getBoardRoute(id)}>
           <NavItem key={id} content={title} isCurrent={isCurrent(id)} />
         </Link>
