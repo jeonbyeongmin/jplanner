@@ -2,18 +2,17 @@
   "board": [
     {
       "id": "board1",
-      "title": "계획 제목을 입력하고 Enter를 누르면 저장됩니다. 취소하려면 다른 곳을 클릭해주세요"
+      "title": "안녕하세요안녕"
     },
     {
       "id": "board2",
-      "title": "Board 2"
+      "title": "asadasdfasd"
     },
     {
       "id": "board3",
       "title": "Board 3"
     }
   ],
-
   "taskList": [
     {
       "id": "taskList1",

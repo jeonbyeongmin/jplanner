@@ -1,4 +1,5 @@
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu'
+import { BoardActorContext } from '@/contexts/global-state-provider'
 import { boardTitleMachine } from '@/machines/board/board-title-machine'
 import { Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
 import { useMachine } from '@xstate/react'
@@ -6,23 +7,22 @@ import { useEffect, useRef } from 'react'
 import { HiPlus } from 'react-icons/hi'
 
 interface BoardHeaderProps {
+  boardID: string
   title: string
 }
 
-export function BoardHeader({ title }: BoardHeaderProps) {
+export function BoardHeader({ title, boardID }: BoardHeaderProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const boardRef = BoardActorContext.useActorRef()
+  const [current, send] = useMachine(boardTitleMachine, { context: { boardRef } })
 
-  const [current, send] = useMachine(boardTitleMachine, {
-    devTools: true,
-    context: {
-      title: title,
-      pendingTitle: title,
-    },
-  })
+  const handleSubmit = () => {
+    send({ type: 'SUBMIT', id: boardID })
+  }
 
   const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      send('SUBMIT')
+      handleSubmit()
     }
   }
 
@@ -33,14 +33,13 @@ export function BoardHeader({ title }: BoardHeaderProps) {
 
   useEffect(() => {
     send({
-      type: 'INITIATE',
+      type: 'INITIALIZE',
       value: title,
     })
-  }, [send, title])
+  }, [title, send])
 
   return (
     <Flex
-      ref={ref}
       bgColor='white'
       h={20}
       borderBottom='1px'
@@ -53,7 +52,7 @@ export function BoardHeader({ title }: BoardHeaderProps) {
       position='absolute'
     >
       {current.matches('editing') ? (
-        <Flex flex={1} gap={2}>
+        <Flex flex={1} gap={2} ref={ref}>
           <Input
             variant='outline'
             defaultValue={current.context.pendingTitle}
@@ -64,14 +63,14 @@ export function BoardHeader({ title }: BoardHeaderProps) {
             p={2}
             autoFocus
           />
-          <Button onClick={() => send('SUBMIT')} isDisabled={!current.can('SUBMIT')}>
+          <Button onClick={handleSubmit} isDisabled={!current.context.pendingTitle}>
             확인
           </Button>
           <Button onClick={() => send('CANCEL')}>취소</Button>
         </Flex>
       ) : (
         <Flex p={2} _hover={{ bgColor: 'gray.50' }} borderRadius='md'>
-          <Tooltip label={current.context.title} openDelay={1000}>
+          <Tooltip label={title} openDelay={1000}>
             <Text
               fontSize='xl'
               fontWeight='bold'
@@ -81,7 +80,7 @@ export function BoardHeader({ title }: BoardHeaderProps) {
               noOfLines={1}
               color='blackAlpha.900'
             >
-              {current.context.title}
+              {title}
             </Text>
           </Tooltip>
         </Flex>
