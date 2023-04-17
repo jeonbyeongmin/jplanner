@@ -1,24 +1,30 @@
 import { assign, createMachine } from 'xstate'
 
 const schema = {
-  context: {} as { pendingTitle: string; title: string },
+  context: {} as {
+    pendingTitle: string
+    prev: string
+    boardRef: any
+  },
   events: {} as
-    | { type: 'INITIATE'; value: string }
+    | { type: 'INITIALIZE'; value: string }
     | { type: 'CHANGE'; value: string }
-    | { type: 'SUBMIT' }
+    | { type: 'SUBMIT'; id: string }
     | { type: 'EDIT' }
     | { type: 'CANCEL' },
 }
 
 export const boardTitleMachine = createMachine(
   {
+    tsTypes: {} as import('./board-title-machine.typegen').Typegen0,
     predictableActionArguments: true,
     schema,
     id: 'boardTitle',
     initial: 'viewing',
     context: {
       pendingTitle: '',
-      title: '',
+      prev: '',
+      boardRef: null,
     },
     states: {
       viewing: {
@@ -40,18 +46,18 @@ export const boardTitleMachine = createMachine(
           },
           CANCEL: {
             target: 'viewing',
-            actions: 'resetPendingTitle',
+            actions: 'resetTitle',
           },
         },
       },
     },
     on: {
-      INITIATE: {
+      INITIALIZE: {
         target: 'viewing',
         actions: [
           assign({
-            title: (_, event) => event.value,
             pendingTitle: (_, event) => event.value,
+            prev: (_, event) => event.value,
           }),
         ],
       },
@@ -63,12 +69,16 @@ export const boardTitleMachine = createMachine(
     },
 
     actions: {
-      updateTitle: assign({
-        title: (context) => context.pendingTitle,
-      }),
-      resetPendingTitle: assign({
-        pendingTitle: (context) => context.title,
-      }),
+      updateTitle: (context, event) => {
+        context.boardRef.send({
+          type: 'UPDATE_BOARD',
+          data: {
+            id: event.id,
+            title: context.pendingTitle,
+          },
+        })
+      },
+      resetTitle: assign({ pendingTitle: (context) => context.prev }),
     },
   },
 )
