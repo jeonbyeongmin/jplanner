@@ -1,7 +1,7 @@
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu'
 import { BoardActorContext } from '@/contexts/global-state-provider'
 import { boardTitleMachine } from '@/machines/board/board-title-machine'
-import { Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
+import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
 import { useMachine } from '@xstate/react'
 import { useEffect, useRef } from 'react'
 import { HiPlus } from 'react-icons/hi'
@@ -20,15 +20,21 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
     send({ type: 'SUBMIT', id: boardID })
   }
 
-  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleCancel = () => {
+    send('CANCEL')
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSubmit()
+    } else if (e.key === 'Escape') {
+      handleCancel()
     }
   }
 
   useOutsideClick({
     ref: ref,
-    handler: current.matches('editing') ? () => send('CANCEL') : undefined,
+    handler: current.matches('editing') ? handleCancel : undefined,
   })
 
   useEffect(() => {
@@ -57,7 +63,7 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
             variant='outline'
             defaultValue={current.context.pendingTitle}
             onChange={(e) => send('CHANGE', { value: e.target.value })}
-            onKeyDown={handleEnterKeyDown}
+            onKeyDown={handleKeyDown}
             fontSize='xl'
             fontWeight='bold'
             p={2}
@@ -66,10 +72,11 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
           <Button onClick={handleSubmit} isDisabled={!current.context.pendingTitle}>
             확인
           </Button>
-          <Button onClick={() => send('CANCEL')}>취소</Button>
+          <Button onClick={handleCancel}>취소</Button>
         </Flex>
       ) : (
-        <Flex p={2} _hover={{ bgColor: 'gray.50' }} borderRadius='md'>
+        <Flex p={2} px={4} _hover={{ bgColor: 'gray.50' }} borderRadius='md' gap={2} align='center'>
+          <Box w={2} h={2} bgColor='green.400' flexShrink={0} borderRadius='full' />
           <Tooltip label={title} openDelay={1000}>
             <Text
               fontSize='xl'

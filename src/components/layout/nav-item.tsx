@@ -1,4 +1,4 @@
-import { Box, Flex, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react'
 import { useMemo } from 'react'
 
 interface NavItemProps {
@@ -11,7 +11,6 @@ export function NavItem({ content, isCurrent }: NavItemProps) {
     return {
       default: isCurrent ? 'gray.100' : 'white',
       hover: isCurrent ? 'gray.200' : 'gray.100',
-      active: isCurrent ? 'gray.300' : 'gray.200',
     }
   }, [isCurrent])
 
@@ -30,7 +29,10 @@ export function NavItem({ content, isCurrent }: NavItemProps) {
         visibility='visible'
       >
         <Flex flex={1} overflow='hidden' h={7} wordBreak='break-all' position='relative'>
-          {content}
+          <Flex align='center' gap={2} flexShrink={0}>
+            <Box w={1.5} h={1.5} bgColor='green.400' borderRadius='full' />
+            <Text>{content}</Text>
+          </Flex>
           <Box
             position='absolute'
             insetY={0}
