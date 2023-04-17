@@ -1,10 +1,13 @@
-import { Board } from '@/types/board.type'
+export type UpdateBoardDTO = {
+  id: string
+  title?: string
+}
 
 export const updateBoardPath = (id: string) => `http://localhost:4000/board/${id}`
 
-export const updateBoardAPI = async (board: Board) => {
+export const updateBoardAPI = async (board: UpdateBoardDTO) => {
   const response = await fetch(updateBoardPath(board.id), {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
