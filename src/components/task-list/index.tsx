@@ -18,7 +18,16 @@ interface TaskListProps {
 
 export function TaskList({ listID, listTitle, tasks }: TaskListProps) {
   return (
-    <Flex role='group' w={'96'} bgColor='white' border='1px' borderColor='gray.200' shadow='lg' borderRadius='lg'>
+    <Flex
+      role='group'
+      w={'96'}
+      bgColor='white'
+      border='1px'
+      borderColor='gray.200'
+      shadow='lg'
+      borderRadius='xl'
+      position='relative'
+    >
       <Flex direction='column' gap={5} p={3} pt={4} w='full'>
         <TaskListHeader listTitle={listTitle} numberOfTasks={tasks.length} />
         <Droppable droppableId={listID} type='task'>

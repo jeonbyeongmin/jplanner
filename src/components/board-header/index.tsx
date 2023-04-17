@@ -20,6 +20,10 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
     send({ type: 'SUBMIT', id: boardID })
   }
 
+  const handleEdit = () => {
+    send('EDIT')
+  }
+
   const handleCancel = () => {
     send('CANCEL')
   }
@@ -75,7 +79,7 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
           <Button onClick={handleCancel}>취소</Button>
         </Flex>
       ) : (
-        <Flex p={2} px={4} _hover={{ bgColor: 'gray.50' }} borderRadius='md' gap={2} align='center'>
+        <Flex p={2} px={3} _hover={{ bgColor: 'gray.100' }} borderRadius='lg' gap={2} align='center'>
           <Box w={2} h={2} bgColor='green.400' flexShrink={0} borderRadius='full' />
           <Tooltip label={title} openDelay={1000}>
             <Text
@@ -83,7 +87,7 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
               fontWeight='bold'
               cursor='pointer'
               userSelect='none'
-              onClick={() => send('EDIT')}
+              onClick={handleEdit}
               noOfLines={1}
               color='blackAlpha.900'
             >
@@ -93,10 +97,10 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
         </Flex>
       )}
       <Flex gap={2}>
-        <Tooltip label='Add new task list'>
+        <Tooltip label='새로운 작업 리스트 추가'>
           <IconButton aria-label='Add' icon={<HiPlus />} variant='outline' fontSize={20} color='gray.500' />
         </Tooltip>
-        <BoardHeaderMenu />
+        <BoardHeaderMenu onEdit={handleEdit} />
       </Flex>
     </Flex>
   )

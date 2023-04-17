@@ -11,7 +11,7 @@ export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps
   return (
     <Flex bgColor='white' borderRadius='md' align='center' justify='space-between' gap={2}>
       <Flex align='center' gap={1}>
-        <Flex _hover={{ bgColor: 'gray.50' }} py={2} px={3} borderRadius='md' userSelect='none' cursor='pointer'>
+        <Flex _hover={{ bgColor: 'gray.100' }} py={1} px={3} borderRadius='md' userSelect='none' cursor='pointer'>
           <Text wordBreak='break-all' noOfLines={1} fontWeight='semibold'>
             {listTitle}
           </Text>
@@ -23,7 +23,7 @@ export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps
         </Flex>
       </Flex>
       <Flex align='center'>
-        <Tooltip label='Add new task'>
+        <Tooltip label='새로운 작업 추가'>
           <IconButton
             aria-label='Add'
             icon={<HiPlus />}

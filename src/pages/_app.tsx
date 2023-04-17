@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 import { GlobalStateProvider } from '@/contexts/global-state-provider'
 import { logOnBrowser } from '@/utils/logger'
+import { theme } from '@/styles/chakra.config'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       >
-        <ChakraProvider resetCSS>
+        <ChakraProvider resetCSS theme={theme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
