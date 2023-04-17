@@ -3,33 +3,28 @@
 export interface Typegen0 {
   '@@xstate/typegen': true
   'internalEvents': {
-    'done.invoke.board.adding:invocation[0]': {
-      type: 'done.invoke.board.adding:invocation[0]'
-      data: unknown
-      __tip: 'See the XState TS docs to learn how to strongly type this.'
-    }
     'xstate.init': { type: 'xstate.init' }
   }
   'invokeSrcNameMap': {
-    addBoard: 'done.invoke.board.adding:invocation[0]'
-    deleteBoard: 'done.invoke.board.deleting:invocation[0]'
-    updateBoard: 'done.invoke.board.updating:invocation[0]'
+    addBoardActor: 'done.invoke.board.adding:invocation[0]'
+    deleteBoardActor: 'done.invoke.board.deleting:invocation[0]'
+    updateBoardActor: 'done.invoke.board.updating:invocation[0]'
   }
   'missingImplementations': {
-    actions: 'refetch'
+    actions: never
     delays: never
     guards: never
     services: never
   }
   'eventsCausingActions': {
-    refetch: 'done.invoke.board.adding:invocation[0]'
+    updateData: 'UPDATE_DATA'
   }
   'eventsCausingDelays': {}
   'eventsCausingGuards': {}
   'eventsCausingServices': {
-    addBoard: 'ADD_BOARD'
-    deleteBoard: 'DELETE_BOARD'
-    updateBoard: 'UPDATE_BOARD'
+    addBoardActor: 'ADD_BOARD'
+    deleteBoardActor: 'DELETE_BOARD'
+    updateBoardActor: 'UPDATE_BOARD'
   }
   'matchesStates': 'adding' | 'deleting' | 'failure' | 'idle' | 'updating' | 'waiting'
   'tags': never

@@ -1,8 +1,10 @@
-import { Board } from '@/types/board.type'
+export type CreateBoardDTO = {
+  title: string
+}
 
 export const createBoardPath = () => 'http://localhost:4000/board'
 
-export const createBoardAPI = async (board: Board) => {
+export const createBoardAPI = async (board: CreateBoardDTO) => {
   const response = await fetch(createBoardPath(), {
     method: 'POST',
     headers: {
@@ -11,5 +13,5 @@ export const createBoardAPI = async (board: Board) => {
     body: JSON.stringify(board),
   })
   const data = await response.json()
-  return data as Board
+  return data
 }

@@ -11,9 +11,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <GlobalStateProvider>
       <SWRConfig
         value={{
-          refreshInterval: 0,
           revalidateIfStale: false,
           revalidateOnFocus: false,
+
           revalidateOnReconnect: false,
           fetcher: (resource, init) => {
             logOnBrowser(`fetching ${resource}`)
