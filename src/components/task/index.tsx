@@ -7,7 +7,7 @@ interface TaskProps {
   completed: boolean
 }
 
-export function Task({ id, name, description, completed }: TaskProps) {
+export function Task({ name }: TaskProps) {
   return (
     <Flex
       p={4}
