@@ -10,7 +10,12 @@ server.use(jsonServer.bodyParser)
 server.use((req, res, next) => {
   if (req.method === 'POST') {
     req.body.createdAt = Date.now()
+    req.body.updatedAt = Date.now()
     req.body.id = Math.random().toString(36).substr(2, 9)
+  }
+
+  if (req.method === 'PUT' || req.method === 'PATCH') {
+    req.body.updatedAt = Date.now()
   }
 
   next()

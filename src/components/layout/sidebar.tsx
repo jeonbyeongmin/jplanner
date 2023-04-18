@@ -1,8 +1,7 @@
 import { Nav } from '@/components/layout/nav'
 import { BoardActorContext } from '@/contexts/global-state-provider'
-import { Avatar, Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { HiChevronDown } from 'react-icons/hi'
 
 export function Sidebar() {
   const router = useRouter()
@@ -11,7 +10,7 @@ export function Sidebar() {
   const handleNewBoard = async () => {
     boardActorRef.send({
       type: 'ADD_BOARD',
-      data: { title: 'New board' },
+      payload: { title: 'New board' },
       navigateToBoard: (boardID: string) => router.push(`/board/${boardID}`),
     })
   }

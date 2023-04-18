@@ -72,7 +72,7 @@ export const boardTitleMachine = createMachine(
       updateTitle: (context, event) => {
         context.boardRef.send({
           type: 'UPDATE_BOARD',
-          data: {
+          payload: {
             id: event.id,
             title: context.pendingTitle,
           },
