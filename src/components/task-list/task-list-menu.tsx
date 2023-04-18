@@ -1,14 +1,10 @@
-import { useState } from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import { HiDotsVertical } from 'react-icons/hi'
 import { Box, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { useToggle } from '@/hooks/use-toggle'
 
 export function TaskListMenu() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen)
-  }
+  const [isOpen, handleToggle] = useToggle()
 
   return (
     <Menu placement='bottom-end' isOpen={isOpen} onOpen={handleToggle} onClose={handleToggle}>
@@ -35,14 +31,14 @@ export function TaskListMenu() {
       <Box
         left={0}
         top={0}
+        bottom={0}
+        right={0}
         position='absolute'
-        zIndex={1}
         bgColor='white'
-        opacity='0.7'
-        w='full'
-        h='full'
         borderRadius='xl'
-        visibility={isOpen ? 'visible' : 'hidden'}
+        zIndex={isOpen ? 1 : -1}
+        opacity={isOpen ? 0.7 : 0}
+        transition='all 0.2s'
       />
     </Menu>
   )
