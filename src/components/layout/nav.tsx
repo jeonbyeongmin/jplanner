@@ -34,11 +34,13 @@ export function Nav() {
       visibility='hidden'
       _hover={{ visibility: 'visible' }}
     >
-      {state.context.boards?.map(({ id, title }) => (
-        <Link key={id} href={getBoardRoute(id)}>
-          <NavItem key={id} content={title} isCurrent={router.query.id === id} />
-        </Link>
-      ))}
+      <Flex as='li' direction='column'>
+        {state.context.boards?.map(({ id, title }) => (
+          <Link key={id} href={getBoardRoute(id)}>
+            <NavItem key={id} content={title} isCurrent={router.query.id === id} />
+          </Link>
+        ))}
+      </Flex>
     </Flex>
   )
 }

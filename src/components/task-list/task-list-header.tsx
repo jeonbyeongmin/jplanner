@@ -31,8 +31,8 @@ export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps
             variant='ghost'
             fontSize='lg'
             color='gray.500'
-            visibility='hidden'
-            _groupHover={{ visibility: 'visible' }}
+            opacity={0}
+            _groupHover={{ opacity: 1 }}
           />
         </Tooltip>
         <TaskListMenu />
