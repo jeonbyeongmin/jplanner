@@ -18,7 +18,6 @@ export function NavItem({ content, isCurrent }: NavItemProps) {
     <Tooltip label={content} aria-label={content} openDelay={1000}>
       <Flex
         role='group'
-        as='li'
         bgColor={bgColors.default}
         _hover={{ bgColor: bgColors.hover }}
         p={3}

@@ -16,9 +16,9 @@ export function TaskListMenu() {
         size='sm'
         color='gray.500'
         fontSize='lg'
-        visibility={isOpen ? 'visible' : 'hidden'}
         zIndex='dropdown'
-        _groupHover={{ visibility: 'visible' }}
+        opacity={isOpen ? 1 : 0}
+        _groupHover={{ opacity: 1 }}
       />
       <MenuList zIndex='dropdown'>
         <MenuItem icon={<FiEdit size={16} />} iconSpacing={5}>
