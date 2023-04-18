@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getBoardsPath } from '@/api/board/get-board'
 import { CreateBoardParams, createBoardAPI } from '@/api/board/create-board'
 import { deleteBoardAPI } from '@/api/board/delete-board'

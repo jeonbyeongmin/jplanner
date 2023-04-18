@@ -4,6 +4,7 @@ const schema = {
   context: {} as {
     pendingTitle: string
     prev: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     boardRef: any
   },
   events: {} as
