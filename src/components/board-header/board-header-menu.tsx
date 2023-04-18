@@ -4,9 +4,10 @@ import { FiEdit, FiArchive, FiTrash2 } from 'react-icons/fi'
 
 interface BoardHeaderMenuProps {
   onEdit: () => void
+  onDelete: () => void
 }
 
-export function BoardHeaderMenu({ onEdit }: BoardHeaderMenuProps) {
+export function BoardHeaderMenu({ onEdit, onDelete }: BoardHeaderMenuProps) {
   return (
     <Menu>
       <MenuButton
@@ -25,7 +26,7 @@ export function BoardHeaderMenu({ onEdit }: BoardHeaderMenuProps) {
         <MenuItem icon={<FiArchive size={16} />} iconSpacing={4}>
           아카이브로 이동
         </MenuItem>
-        <MenuItem icon={<FiTrash2 size={16} />} iconSpacing={4}>
+        <MenuItem icon={<FiTrash2 size={16} />} iconSpacing={4} onClick={onDelete}>
           이 보드 삭제
         </MenuItem>
       </MenuList>

@@ -1,10 +1,10 @@
-export type CreateBoardDTO = {
+export type CreateBoardParams = {
   title: string
 }
 
 export const createBoardPath = () => 'http://localhost:4000/board'
 
-export const createBoardAPI = async (board: CreateBoardDTO) => {
+export const createBoardAPI = async (board: CreateBoardParams) => {
   const response = await fetch(createBoardPath(), {
     method: 'POST',
     headers: {

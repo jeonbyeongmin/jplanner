@@ -3,6 +3,7 @@ import { BoardActorContext } from '@/contexts/global-state-provider'
 import { boardTitleMachine } from '@/machines/board/board-title-machine'
 import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
 import { useMachine } from '@xstate/react'
+import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { HiPlus } from 'react-icons/hi'
 
@@ -12,6 +13,7 @@ interface BoardHeaderProps {
 }
 
 export function BoardHeader({ title, boardID }: BoardHeaderProps) {
+  const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
   const boardRef = BoardActorContext.useActorRef()
   const [current, send] = useMachine(boardTitleMachine, { context: { boardRef } })
@@ -26,6 +28,14 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
 
   const handleCancel = () => {
     send('CANCEL')
+  }
+
+  const handleDelete = () => {
+    boardRef.send({
+      type: 'DELETE_BOARD',
+      payload: { id: boardID },
+      navigateToBoard: (id) => router.push(`/board/${id}`),
+    })
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -100,7 +110,7 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
         <Tooltip label='새로운 작업 리스트 추가'>
           <IconButton aria-label='Add' icon={<HiPlus />} variant='outline' fontSize={20} color='gray.500' />
         </Tooltip>
-        <BoardHeaderMenu onEdit={handleEdit} />
+        <BoardHeaderMenu onEdit={handleEdit} onDelete={handleDelete} />
       </Flex>
     </Flex>
   )

@@ -1,5 +1,4 @@
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react'
-import { useMemo } from 'react'
 
 interface NavItemProps {
   content: string
@@ -7,12 +6,10 @@ interface NavItemProps {
 }
 
 export function NavItem({ content, isCurrent }: NavItemProps) {
-  const bgColors = useMemo(() => {
-    return {
-      default: isCurrent ? 'gray.100' : 'white',
-      hover: isCurrent ? 'gray.200' : 'gray.100',
-    }
-  }, [isCurrent])
+  const bgColors = {
+    default: isCurrent ? 'gray.100' : 'white',
+    hover: isCurrent ? 'gray.200' : 'gray.100',
+  }
 
   return (
     <Tooltip label={content} aria-label={content} openDelay={1000}>

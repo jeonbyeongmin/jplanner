@@ -17,7 +17,7 @@ export function Nav() {
   useEffect(() => {
     send({
       type: 'UPDATE_DATA',
-      data,
+      payload: data,
       error,
     })
   }, [data, error, send])
