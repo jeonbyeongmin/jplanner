@@ -1,7 +1,7 @@
 import { getBoardsPath } from '@/api/board/get-board'
-import { CreateBoardDTO, createBoardAPI } from '@/api/board/create-board'
+import { CreateBoardParams, createBoardAPI } from '@/api/board/create-board'
 import { deleteBoardAPI } from '@/api/board/delete-board'
-import { UpdateBoardDTO, updateBoardAPI } from '@/api/board/update-board'
+import { UpdateBoardParams, updateBoardAPI } from '@/api/board/update-board'
 import { assign, createMachine } from 'xstate'
 import { Board } from '@/types/board.type'
 import { mutate } from 'swr'
@@ -13,17 +13,32 @@ const schema = {
   },
 
   events: {} as
-    | { type: 'UPDATE_DATA'; data: Board[] | undefined; error: any }
-    | { type: 'ADD_BOARD'; data: CreateBoardDTO; navigateToBoard: (boardID: string) => Promise<boolean> }
-    | { type: 'DELETE_BOARD'; data: { id: string } }
-    | { type: 'UPDATE_BOARD'; data: UpdateBoardDTO },
+    | {
+        type: 'UPDATE_DATA'
+        payload: Board[] | undefined
+        error: any
+      }
+    | {
+        type: 'ADD_BOARD'
+        payload: CreateBoardParams
+        navigateToBoard: (boardID: string) => Promise<boolean>
+      }
+    | {
+        type: 'DELETE_BOARD'
+        payload: { id: string }
+        navigateToBoard: (boardID: string) => Promise<boolean>
+      }
+    | {
+        type: 'UPDATE_BOARD'
+        payload: UpdateBoardParams
+      },
 
   services: {} as {
     addBoardActor: {
       data: Board | null | undefined
     }
     deleteBoardActor: {
-      data: { id: string }
+      data: Board[] | null | undefined
     }
     updateBoardActor: {
       data: Board[] | null | undefined
@@ -65,13 +80,6 @@ export const boardMachine = createMachine(
           onError: 'failure',
         },
       },
-      deleting: {
-        invoke: {
-          src: 'deleteBoardActor',
-          onDone: 'waiting',
-          onError: 'failure',
-        },
-      },
       updating: {
         invoke: {
           src: 'updateBoardActor',
@@ -79,9 +87,16 @@ export const boardMachine = createMachine(
           onError: 'failure',
         },
       },
+      deleting: {
+        invoke: {
+          src: 'deleteBoardActor',
+          onDone: 'waiting',
+          onError: 'failure',
+        },
+      },
       failure: {
         entry: assign({
-          error: (_, event) => event.data,
+          error: (_, event) => event.payload,
         }),
         on: {
           UPDATE_DATA: {
@@ -100,32 +115,53 @@ export const boardMachine = createMachine(
   {
     actions: {
       updateData: assign({
-        boards: (_, event) => event.data?.sort((a, b) => b.createdAt - a.createdAt) ?? null,
+        boards: (_, event) => {
+          const compare = (a: Board, b: Board) => {
+            if (b.updatedAt === a.updatedAt) {
+              return b.createdAt - a.createdAt
+            }
+            return b.updatedAt - a.updatedAt
+          }
+
+          return event.payload?.sort(compare) ?? null
+        },
         error: (_, event) => event.error,
       }),
     },
     services: {
       addBoardActor: async (_, event) => {
-        const data = await createBoard(event.data)
-        mutate(getBoardsPath())
+        const data = await createBoard(event.payload)
         event.navigateToBoard(data.id)
+        mutate(getBoardsPath())
         return data
       },
-      deleteBoardActor: (_, event) => {
-        return deleteBoardAPI(event.data.id)
-      },
       updateBoardActor: (context, event) => {
-        return mutate(getBoardsPath(), updateBoard(context.boards, event.data), {
+        return mutate(getBoardsPath(), updateBoard(context.boards, event.payload), {
           optimisticData: () => {
             if (!context.boards) {
               return null
             }
             return context.boards.map((item) => {
-              if (item.id === event.data.id) {
-                return event.data
+              if (item.id === event.payload.id) {
+                return event.payload
               }
               return item
             })
+          },
+          rollbackOnError: true,
+        })
+      },
+      deleteBoardActor: async (context, event) => {
+        return mutate(getBoardsPath(), deleteBoard(context.boards, event.payload.id), {
+          optimisticData: () => {
+            if (!context.boards) {
+              return null
+            }
+
+            const newBoards = context.boards.filter((item) => item.id !== event.payload.id)
+            event.navigateToBoard(newBoards[0]?.id ?? '')
+
+            return newBoards
           },
           rollbackOnError: true,
         })
@@ -134,21 +170,28 @@ export const boardMachine = createMachine(
   },
 )
 
-const createBoard = async (board: CreateBoardDTO): Promise<Board> => {
+const createBoard = async (board: CreateBoardParams): Promise<Board> => {
   const createdBoard = await createBoardAPI(board)
   return createdBoard
 }
 
-const updateBoard = async (data: Board[] | null, board: UpdateBoardDTO) => {
-  if (!data) return null
+const updateBoard = async (boards: Board[] | null, board: UpdateBoardParams) => {
+  if (!boards) return null
   const updatedBoard = await updateBoardAPI(board)
 
-  if (data) {
-    const index = data.findIndex((item) => item.id === updatedBoard.id)
+  if (boards) {
+    const index = boards.findIndex((item) => item.id === updatedBoard.id)
     if (index !== -1) {
-      data[index] = updatedBoard
+      boards[index] = updatedBoard
     }
   }
 
-  return data
+  return boards
+}
+
+const deleteBoard = async (boards: Board[] | null, id: string) => {
+  if (!boards) return null
+  await deleteBoardAPI({ id })
+
+  return boards.filter((item) => item.id !== id)
 }
