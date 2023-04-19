@@ -1,8 +1,8 @@
 export type CreateBoardParams = {
-  title: string
-}
+  title: string;
+};
 
-export const createBoardPath = () => 'http://localhost:4000/board'
+export const createBoardPath = () => 'http://localhost:4000/board';
 
 export const createBoardAPI = async (board: CreateBoardParams) => {
   const response = await fetch(createBoardPath(), {
@@ -11,7 +11,7 @@ export const createBoardAPI = async (board: CreateBoardParams) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(board),
-  })
-  const data = await response.json()
-  return data
-}
+  });
+  const data = await response.json();
+  return data;
+};

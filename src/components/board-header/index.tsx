@@ -1,62 +1,63 @@
-import { BoardHeaderMenu } from '@/components/board-header/board-header-menu'
-import { BoardActorContext } from '@/contexts/global-state-provider'
-import { boardTitleMachine } from '@/machines/board/board-title-machine'
-import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react'
-import { useMachine } from '@xstate/react'
-import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
-import { HiPlus } from 'react-icons/hi'
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
+import { HiPlus } from 'react-icons/hi';
+
+import { BoardHeaderMenu } from '@/components/board-header/board-header-menu';
+import { BoardActorContext } from '@/contexts/global-state-provider';
+import { boardTitleMachine } from '@/machines/board/board-title-machine';
+import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react';
+import { useMachine } from '@xstate/react';
 
 interface BoardHeaderProps {
-  boardID: string
-  title: string
+  boardID: string;
+  title: string;
 }
 
 export function BoardHeader({ title, boardID }: BoardHeaderProps) {
-  const router = useRouter()
-  const ref = useRef<HTMLDivElement>(null)
-  const boardRef = BoardActorContext.useActorRef()
-  const [current, send] = useMachine(boardTitleMachine, { context: { boardRef } })
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const boardRef = BoardActorContext.useActorRef();
+  const [current, send] = useMachine(boardTitleMachine, { context: { boardRef } });
 
   const handleSubmit = () => {
-    send({ type: 'SUBMIT', id: boardID })
-  }
+    send({ type: 'SUBMIT', id: boardID });
+  };
 
   const handleEdit = () => {
-    send('EDIT')
-  }
+    send('EDIT');
+  };
 
   const handleCancel = () => {
-    send('CANCEL')
-  }
+    send('CANCEL');
+  };
 
   const handleDelete = () => {
     boardRef.send({
       type: 'DELETE_BOARD',
       payload: { id: boardID },
       navigateToBoard: (id) => router.push(`/board/${id}`),
-    })
-  }
+    });
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSubmit()
+      handleSubmit();
     } else if (e.key === 'Escape') {
-      handleCancel()
+      handleCancel();
     }
-  }
+  };
 
   useOutsideClick({
     ref: ref,
     handler: current.matches('editing') ? handleCancel : undefined,
-  })
+  });
 
   useEffect(() => {
     send({
       type: 'INITIALIZE',
       value: title,
-    })
-  }, [title, send])
+    });
+  }, [title, send]);
 
   return (
     <Flex
@@ -113,5 +114,5 @@ export function BoardHeader({ title, boardID }: BoardHeaderProps) {
         <BoardHeaderMenu onEdit={handleEdit} onDelete={handleDelete} />
       </Flex>
     </Flex>
-  )
+  );
 }

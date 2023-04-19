@@ -1,28 +1,28 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react';
 
 type UseBooleanReturn = [
   boolean,
   {
-    setTrue: () => void
-    setFalse: () => void
-    toggle: () => void
+    setTrue: () => void;
+    setFalse: () => void;
+    toggle: () => void;
   },
-]
+];
 
 export function useBoolean(defaultValue = false): UseBooleanReturn {
-  const [bool, setBool] = useState(defaultValue)
+  const [bool, setBool] = useState(defaultValue);
 
   const setTrue = useCallback(() => {
-    setBool(true)
-  }, [])
+    setBool(true);
+  }, []);
 
   const setFalse = useCallback(() => {
-    setBool(false)
-  }, [])
+    setBool(false);
+  }, []);
 
   const toggle = useCallback(() => {
-    setBool((prev) => !prev)
-  }, [])
+    setBool((prev) => !prev);
+  }, []);
 
-  return [bool, { setTrue, setFalse, toggle }]
+  return [bool, { setTrue, setFalse, toggle }];
 }

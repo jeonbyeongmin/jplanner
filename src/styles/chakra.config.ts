@@ -1,11 +1,11 @@
-import { menuTheme } from '@/styles/menu'
-import { extendTheme } from '@chakra-ui/react'
+import { menuTheme } from '@/styles/menu';
+import { extendTheme } from '@chakra-ui/react';
 
 const config = {
   cssVarPrefix: 'jp',
   initialColorMode: 'light',
   useSystemColorMode: false,
-}
+};
 
 const zIndices = {
   hide: -1,
@@ -21,7 +21,7 @@ const zIndices = {
   popover: 1500,
   skipLink: 1600,
   toast: 1700,
-}
+};
 
 export const theme = extendTheme({
   colors: {
@@ -42,4 +42,4 @@ export const theme = extendTheme({
   components: {
     Menu: menuTheme,
   },
-})
+});

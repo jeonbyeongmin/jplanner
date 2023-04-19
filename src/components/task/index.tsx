@@ -1,10 +1,10 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react';
 
 interface TaskProps {
-  id: string
-  name: string
-  description: string
-  completed: boolean
+  id: string;
+  name: string;
+  description: string;
+  completed: boolean;
 }
 
 export function Task({ name }: TaskProps) {
@@ -23,5 +23,5 @@ export function Task({ name }: TaskProps) {
     >
       <Text noOfLines={4}>{name}</Text>
     </Flex>
-  )
+  );
 }

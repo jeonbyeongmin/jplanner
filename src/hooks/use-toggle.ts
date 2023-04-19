@@ -1,8 +1,8 @@
-import { useBoolean } from '@/hooks/use-boolean'
+import { useBoolean } from '@/hooks/use-boolean';
 
-type UseToggleReturn = [boolean, () => void]
+type UseToggleReturn = [boolean, () => void];
 
 export function useToggle(defaultValue = false): UseToggleReturn {
-  const [current, { toggle }] = useBoolean(defaultValue)
-  return [current, toggle]
+  const [current, { toggle }] = useBoolean(defaultValue);
+  return [current, toggle];
 }

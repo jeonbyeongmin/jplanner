@@ -1,10 +1,11 @@
-import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { HiDotsVertical } from 'react-icons/hi'
-import { FiEdit, FiArchive, FiTrash2 } from 'react-icons/fi'
+import { FiArchive, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { HiDotsVertical } from 'react-icons/hi';
+
+import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 interface BoardHeaderMenuProps {
-  onEdit: () => void
-  onDelete: () => void
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 export function BoardHeaderMenu({ onEdit, onDelete }: BoardHeaderMenuProps) {
@@ -31,5 +32,5 @@ export function BoardHeaderMenu({ onEdit, onDelete }: BoardHeaderMenuProps) {
         </MenuItem>
       </MenuList>
     </Menu>
-  )
+  );
 }

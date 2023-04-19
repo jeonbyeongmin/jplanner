@@ -1,19 +1,20 @@
-import { Task } from '@/components/task'
-import { TaskListHeader } from '@/components/task-list/task-list-header'
-import { Flex } from '@chakra-ui/react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+
+import { Task } from '@/components/task';
+import { TaskListHeader } from '@/components/task-list/task-list-header';
+import { Flex } from '@chakra-ui/react';
 
 interface Task {
-  id: string
-  name: string
-  description: string
-  completed: boolean
+  id: string;
+  name: string;
+  description: string;
+  completed: boolean;
 }
 
 interface TaskListProps {
-  listID: string
-  listTitle: string
-  tasks: Task[]
+  listID: string;
+  listTitle: string;
+  tasks: Task[];
 }
 
 export function TaskList({ listID, listTitle, tasks }: TaskListProps) {
@@ -48,5 +49,5 @@ export function TaskList({ listID, listTitle, tasks }: TaskListProps) {
         </Droppable>
       </Flex>
     </Flex>
-  )
+  );
 }

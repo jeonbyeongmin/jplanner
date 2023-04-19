@@ -1,10 +1,11 @@
-import { TaskListMenu } from '@/components/task-list/task-list-menu'
-import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react'
-import { HiPlus } from 'react-icons/hi'
+import { HiPlus } from 'react-icons/hi';
+
+import { TaskListMenu } from '@/components/task-list/task-list-menu';
+import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 
 interface TaskListHeaderProps {
-  listTitle: string
-  numberOfTasks?: number
+  listTitle: string;
+  numberOfTasks?: number;
 }
 
 export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps) {
@@ -38,5 +39,5 @@ export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps
         <TaskListMenu />
       </Flex>
     </Flex>
-  )
+  );
 }

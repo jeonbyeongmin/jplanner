@@ -1,15 +1,15 @@
-import { Box, Flex, Text, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 
 interface NavItemProps {
-  content: string
-  isCurrent?: boolean
+  content: string;
+  isCurrent?: boolean;
 }
 
 export function NavItem({ content, isCurrent }: NavItemProps) {
   const bgColors = {
     default: isCurrent ? 'gray.100' : 'white',
     hover: isCurrent ? 'gray.200' : 'gray.100',
-  }
+  };
 
   return (
     <Tooltip label={content} aria-label={content} openDelay={1000}>
@@ -41,5 +41,5 @@ export function NavItem({ content, isCurrent }: NavItemProps) {
         </Flex>
       </Flex>
     </Tooltip>
-  )
+  );
 }

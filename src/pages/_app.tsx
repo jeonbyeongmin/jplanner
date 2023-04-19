@@ -1,12 +1,14 @@
-import '@/styles/globals.css'
-import { Layout } from '@/components/layout'
-import { ChakraProvider } from '@chakra-ui/react'
-import type { AppProps } from 'next/app'
-import { SWRConfig } from 'swr'
-import { GlobalStateProvider } from '@/contexts/global-state-provider'
-import { logOnBrowser } from '@/utils/logger'
-import { theme } from '@/styles/chakra.config'
+import '@/styles/globals.css';
 
+import { SWRConfig } from 'swr';
+
+import { Layout } from '@/components/layout';
+import { GlobalStateProvider } from '@/contexts/global-state-provider';
+import { theme } from '@/styles/chakra.config';
+import { logOnBrowser } from '@/utils/logger';
+import { ChakraProvider } from '@chakra-ui/react';
+
+import type { AppProps } from 'next/app';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <GlobalStateProvider>
@@ -17,8 +19,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
           revalidateOnReconnect: false,
           fetcher: (resource, init) => {
-            logOnBrowser(`fetching ${resource}`)
-            return fetch(resource, init).then((res) => res.json())
+            logOnBrowser(`fetching ${resource}`);
+            return fetch(resource, init).then((res) => res.json());
           },
         }}
       >
@@ -29,5 +31,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </ChakraProvider>
       </SWRConfig>
     </GlobalStateProvider>
-  )
+  );
 }

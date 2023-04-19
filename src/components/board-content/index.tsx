@@ -1,85 +1,86 @@
-import { TaskList } from '@/components/task-list'
-import { Flex } from '@chakra-ui/react'
-import { useState } from 'react'
-import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd'
+import { useState } from 'react';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+
+import { TaskList } from '@/components/task-list';
+import { Flex } from '@chakra-ui/react';
 
 interface TaskList {
-  id: string
-  name: string
-  tasks: Task[]
+  id: string;
+  name: string;
+  tasks: Task[];
 }
 
 interface Task {
-  id: string
-  name: string
-  description: string
-  completed: boolean
+  id: string;
+  name: string;
+  description: string;
+  completed: boolean;
 }
 
 export function BoardContent() {
-  const [taskLists, setTaskLists] = useState(tls)
+  const [taskLists, setTaskLists] = useState(tls);
 
   const reorder = (lists: TaskList[], startIndex: number, endIndex: number) => {
-    const result = Array.from(lists)
-    const [removed] = result.splice(startIndex, 1)
-    result.splice(endIndex, 0, removed)
+    const result = Array.from(lists);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-    return result
-  }
+    return result;
+  };
 
   const onDragEnd = (result: DropResult) => {
-    const { destination, source, type } = result
+    const { destination, source, type } = result;
 
     // dropped outside the list
     if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-      return
+      return;
     }
 
     // reorder task lists
     if (type === 'tasklist') {
-      const newTaskLists = reorder(taskLists, source.index, destination.index)
-      setTaskLists(newTaskLists)
-      return
+      const newTaskLists = reorder(taskLists, source.index, destination.index);
+      setTaskLists(newTaskLists);
+      return;
     }
 
     // reorder tasks
     if (type === 'task') {
-      const sourceTaskList = taskLists.find((tl) => tl.id === source.droppableId)
-      const destinationTaskList = taskLists.find((tl) => tl.id === destination.droppableId)
+      const sourceTaskList = taskLists.find((tl) => tl.id === source.droppableId);
+      const destinationTaskList = taskLists.find((tl) => tl.id === destination.droppableId);
 
       if (sourceTaskList && destinationTaskList) {
         if (sourceTaskList.id === destinationTaskList.id) {
           const newTaskLists = taskLists.map((tl) => {
             if (tl.id === sourceTaskList.id) {
-              const tasks = Array.from(tl.tasks)
-              const [removed] = tasks.splice(source.index, 1)
-              tasks.splice(destination.index, 0, removed)
-              return { ...tl, tasks }
+              const tasks = Array.from(tl.tasks);
+              const [removed] = tasks.splice(source.index, 1);
+              tasks.splice(destination.index, 0, removed);
+              return { ...tl, tasks };
             } else {
-              return tl
+              return tl;
             }
-          })
-          setTaskLists(newTaskLists)
+          });
+          setTaskLists(newTaskLists);
         } else {
-          const sourceTasks = Array.from(sourceTaskList.tasks)
-          const [removed] = sourceTasks.splice(source.index, 1)
-          destinationTaskList.tasks.splice(destination.index, 0, removed)
+          const sourceTasks = Array.from(sourceTaskList.tasks);
+          const [removed] = sourceTasks.splice(source.index, 1);
+          destinationTaskList.tasks.splice(destination.index, 0, removed);
 
           const newTaskLists = taskLists.map((tl) => {
             if (tl.id === sourceTaskList.id) {
-              return { ...tl, tasks: sourceTasks }
+              return { ...tl, tasks: sourceTasks };
             } else if (tl.id === destinationTaskList.id) {
-              return { ...tl, tasks: destinationTaskList.tasks }
+              return { ...tl, tasks: destinationTaskList.tasks };
             } else {
-              return tl
+              return tl;
             }
-          })
+          });
 
-          setTaskLists(newTaskLists)
+          setTaskLists(newTaskLists);
         }
       }
     }
-  }
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -100,7 +101,7 @@ export function BoardContent() {
         )}
       </Droppable>
     </DragDropContext>
-  )
+  );
 }
 
 const tls = [
@@ -182,4 +183,4 @@ const tls = [
       },
     ],
   },
-]
+];

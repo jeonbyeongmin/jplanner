@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-const title = 'JPlanner'
-const description = 'No more spend too much time planning'
+const title = 'JPlanner';
+const description = 'No more spend too much time planning';
 
 export function SEO() {
   return (
@@ -23,5 +23,5 @@ export function SEO() {
 
       <title>{title}</title>
     </Head>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 
 export default function Home() {
-  return {}
+  return {};
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const {} = context
+  const {} = context;
 
-  const user = true // get user from db
+  const user = true; // get user from db
 
   if (!user) {
     return {
@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
       props: {},
-    }
+    };
   }
 
   return {
@@ -25,5 +25,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       permanent: false,
     },
     props: {},
-  }
-}
+  };
+};

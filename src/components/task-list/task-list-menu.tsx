@@ -1,10 +1,11 @@
-import { FiEdit, FiTrash2 } from 'react-icons/fi'
-import { HiDotsVertical } from 'react-icons/hi'
-import { Box, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { useToggle } from '@/hooks/use-toggle'
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { HiDotsVertical } from 'react-icons/hi';
+
+import { useToggle } from '@/hooks/use-toggle';
+import { Box, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 export function TaskListMenu() {
-  const [isOpen, handleToggle] = useToggle()
+  const [isOpen, handleToggle] = useToggle();
 
   return (
     <Menu placement='bottom-end' isOpen={isOpen} onOpen={handleToggle} onClose={handleToggle}>
@@ -41,5 +42,5 @@ export function TaskListMenu() {
         transition='all 0.2s'
       />
     </Menu>
-  )
+  );
 }

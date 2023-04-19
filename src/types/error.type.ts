@@ -1,2 +1,2 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type ErrorType = any
+export type ErrorType = any;

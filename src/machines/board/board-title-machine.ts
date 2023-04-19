@@ -1,11 +1,11 @@
-import { assign, createMachine } from 'xstate'
+import { assign, createMachine } from 'xstate';
 
 const schema = {
   context: {} as {
-    pendingTitle: string
-    prev: string
+    pendingTitle: string;
+    prev: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boardRef: any
+    boardRef: any;
   },
   events: {} as
     | { type: 'INITIALIZE'; value: string }
@@ -13,7 +13,7 @@ const schema = {
     | { type: 'SUBMIT'; id: string }
     | { type: 'EDIT' }
     | { type: 'CANCEL' },
-}
+};
 
 export const boardTitleMachine = createMachine(
   {
@@ -77,9 +77,9 @@ export const boardTitleMachine = createMachine(
             id: event.id,
             title: context.pendingTitle,
           },
-        })
+        });
       },
       resetTitle: assign({ pendingTitle: (context) => context.prev }),
     },
   },
-)
+);

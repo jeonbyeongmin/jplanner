@@ -1,16 +1,17 @@
-import { SEO } from '@/components/layout/seo'
-import { Sidebar } from '@/components/layout/sidebar'
-import { Flex } from '@chakra-ui/react'
-import { Noto_Sans } from 'next/font/google'
+import { Noto_Sans } from 'next/font/google';
+
+import { SEO } from '@/components/layout/seo';
+import { Sidebar } from '@/components/layout/sidebar';
+import { Flex } from '@chakra-ui/react';
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const notoSans = Noto_Sans({
   weight: ['300', '400', '700'],
   subsets: ['latin'],
-})
+});
 
 export function Layout({ children }: LayoutProps) {
   return (
@@ -28,5 +29,5 @@ export function Layout({ children }: LayoutProps) {
         </Flex>
       </Flex>
     </>
-  )
+  );
 }

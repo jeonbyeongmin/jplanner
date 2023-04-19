@@ -1,26 +1,27 @@
-import useSWR from 'swr'
-import Link from 'next/link'
-import { getBoardsPath } from '@/api/board/get-board'
-import { NavItem } from '@/components/layout/nav-item'
-import { Board } from '@/types/board.type'
-import { getBoardRoute } from '@/utils/routes'
-import { Flex } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { BoardActorContext } from '@/contexts/global-state-provider'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import useSWR from 'swr';
+
+import { getBoardsPath } from '@/api/board/get-board';
+import { NavItem } from '@/components/layout/nav-item';
+import { BoardActorContext } from '@/contexts/global-state-provider';
+import { Board } from '@/types/board.type';
+import { getBoardRoute } from '@/utils/routes';
+import { Flex } from '@chakra-ui/react';
 
 export function Nav() {
-  const router = useRouter()
-  const { data, error } = useSWR<Board[]>(getBoardsPath())
-  const [state, send] = BoardActorContext.useActor()
+  const router = useRouter();
+  const { data, error } = useSWR<Board[]>(getBoardsPath());
+  const [state, send] = BoardActorContext.useActor();
 
   useEffect(() => {
     send({
       type: 'UPDATE_DATA',
       payload: data,
       error,
-    })
-  }, [data, error, send])
+    });
+  }, [data, error, send]);
 
   return (
     <Flex
@@ -42,5 +43,5 @@ export function Nav() {
         ))}
       </Flex>
     </Flex>
-  )
+  );
 }
