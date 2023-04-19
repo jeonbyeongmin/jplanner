@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getBoardsPath } from '@/api/board/get-board'
 import { CreateBoardParams, createBoardAPI } from '@/api/board/create-board'
 import { deleteBoardAPI } from '@/api/board/delete-board'
@@ -6,18 +5,19 @@ import { UpdateBoardParams, updateBoardAPI } from '@/api/board/update-board'
 import { assign, createMachine } from 'xstate'
 import { Board } from '@/types/board.type'
 import { mutate } from 'swr'
+import { ErrorType } from '@/types/error.type'
 
 const schema = {
   context: {} as {
     boards: Board[] | null
-    error: any
+    error: ErrorType
   },
 
   events: {} as
     | {
         type: 'UPDATE_DATA'
         payload: Board[] | undefined
-        error: any
+        error: ErrorType
       }
     | {
         type: 'ADD_BOARD'
