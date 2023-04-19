@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     redirect: {
-      destination: '/planner',
+      destination: '/board',
       permanent: false,
     },
     props: {},
