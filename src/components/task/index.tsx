@@ -1,13 +1,13 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-interface TaskProps {
+interface Props {
   id: string;
   name: string;
   description: string;
   completed: boolean;
 }
 
-export function Task({ name }: TaskProps) {
+export function Task({ name }: Props) {
   return (
     <Flex
       p={4}

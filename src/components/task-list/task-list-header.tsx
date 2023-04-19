@@ -3,12 +3,12 @@ import { HiPlus } from 'react-icons/hi';
 import { TaskListMenu } from '@/components/task-list/task-list-menu';
 import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 
-interface TaskListHeaderProps {
+interface Props {
   listTitle: string;
   numberOfTasks?: number;
 }
 
-export function TaskListHeader({ listTitle, numberOfTasks }: TaskListHeaderProps) {
+export function TaskListHeader({ listTitle, numberOfTasks }: Props) {
   return (
     <Flex bgColor='white' borderRadius='md' align='center' justify='space-between' gap={2}>
       <Flex align='center' gap={1}>

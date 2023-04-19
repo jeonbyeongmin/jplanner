@@ -8,12 +8,12 @@ import { boardTitleMachine } from '@/machines/board/board-title-machine';
 import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react';
 import { useMachine } from '@xstate/react';
 
-interface BoardHeaderProps {
+interface Props {
   boardID: string;
   title: string;
 }
 
-export function BoardHeader({ title, boardID }: BoardHeaderProps) {
+export function BoardHeader({ title, boardID }: Props) {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const boardRef = BoardActorContext.useActorRef();

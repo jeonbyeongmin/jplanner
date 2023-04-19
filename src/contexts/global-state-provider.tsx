@@ -3,10 +3,10 @@ import { createActorContext } from '@xstate/react';
 
 export const BoardActorContext = createActorContext(boardMachine, { devTools: true });
 
-interface GlobalStateProviderProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export const GlobalStateProvider = ({ children }: GlobalStateProviderProps) => {
+export const GlobalStateProvider = ({ children }: Props) => {
   return <BoardActorContext.Provider>{children}</BoardActorContext.Provider>;
 };

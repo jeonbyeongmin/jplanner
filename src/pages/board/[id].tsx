@@ -6,11 +6,11 @@ import { BoardHeader } from '@/components/board-header';
 import { BoardActorContext } from '@/contexts/global-state-provider';
 import { Flex } from '@chakra-ui/react';
 
-interface BoardDetailProps {
+interface Props {
   boardID: string;
 }
 
-export default function BoardDetail({ boardID }: BoardDetailProps) {
+export default function BoardDetail({ boardID }: Props) {
   const boards = BoardActorContext.useSelector((state) => state.context.boards);
   const title = boards?.find((board) => board.id === boardID)?.title ?? '';
 

@@ -1,11 +1,11 @@
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 
-interface NavItemProps {
+interface Props {
   content: string;
   isCurrent?: boolean;
 }
 
-export function NavItem({ content, isCurrent }: NavItemProps) {
+export function NavItem({ content, isCurrent }: Props) {
   const bgColors = {
     default: isCurrent ? 'gray.100' : 'white',
     hover: isCurrent ? 'gray.200' : 'gray.100',

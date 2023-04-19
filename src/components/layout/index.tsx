@@ -4,7 +4,7 @@ import { SEO } from '@/components/layout/seo';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Flex } from '@chakra-ui/react';
 
-interface LayoutProps {
+interface Props {
   children: React.ReactNode;
 }
 
@@ -13,7 +13,7 @@ const notoSans = Noto_Sans({
   subsets: ['latin'],
 });
 
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children }: Props) {
   return (
     <>
       <SEO />

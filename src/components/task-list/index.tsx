@@ -11,13 +11,13 @@ interface Task {
   completed: boolean;
 }
 
-interface TaskListProps {
+interface Props {
   listID: string;
   listTitle: string;
   tasks: Task[];
 }
 
-export function TaskList({ listID, listTitle, tasks }: TaskListProps) {
+export function TaskList({ listID, listTitle, tasks }: Props) {
   return (
     <Flex
       role='group'

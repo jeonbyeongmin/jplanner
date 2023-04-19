@@ -3,12 +3,12 @@ import { HiDotsVertical } from 'react-icons/hi';
 
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
-interface BoardHeaderMenuProps {
+interface Props {
   onEdit: () => void;
   onDelete: () => void;
 }
 
-export function BoardHeaderMenu({ onEdit, onDelete }: BoardHeaderMenuProps) {
+export function BoardHeaderMenu({ onEdit, onDelete }: Props) {
   return (
     <Menu>
       <MenuButton
