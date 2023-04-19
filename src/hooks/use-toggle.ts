@@ -1,17 +1,8 @@
-import { toggleMachine } from '@/machines/utils/toggle-machine'
-import { useMachine } from '@xstate/react'
-import { useCallback, useMemo } from 'react'
+import { useBoolean } from '@/hooks/use-boolean'
 
-export function useToggle(): [boolean, () => void] {
-  const [current, send] = useMachine(toggleMachine)
+type UseToggleReturn = [boolean, () => void]
 
-  const active = useMemo(() => {
-    return current.matches('active')
-  }, [current])
-
-  const handleToggle = useCallback(() => {
-    send('TOGGLE')
-  }, [send])
-
-  return [active, handleToggle]
+export function useToggle(defaultValue = false): UseToggleReturn {
+  const [current, { toggle }] = useBoolean(defaultValue)
+  return [current, toggle]
 }
