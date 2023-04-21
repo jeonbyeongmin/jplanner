@@ -2,7 +2,7 @@ export type CreateBoardParams = {
   title: string;
 };
 
-export const createBoardPath = () => 'http://localhost:4000/board';
+export const createBoardPath = () => 'http://127.0.0.1:4000/board';
 
 export const createBoardAPI = async (board: CreateBoardParams) => {
   const response = await fetch(createBoardPath(), {

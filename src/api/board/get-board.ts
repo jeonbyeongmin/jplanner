@@ -1,9 +1,10 @@
 import { Board } from '@/types/board.type';
+import { fetcher } from '@/utils/api-client';
 
-export const getBoardsPath = () => 'http://localhost:4000/board';
+export const getBoardsPath = () => 'board';
 
 export const getBoardsAPI = async (): Promise<Board[]> => {
-  const response = await fetch(getBoardsPath());
-  const data = await response.json();
+  const data = await fetcher(getBoardsPath());
+
   return data;
 };
