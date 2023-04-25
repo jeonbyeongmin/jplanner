@@ -2,7 +2,10 @@ interface EndpointOptions {
   data?: Record<string, unknown>;
 }
 
-export async function fetcher(endpoint: string, { data, ...customConfig }: EndpointOptions & RequestInit = {}) {
+export async function fetcher(
+  endpoint: string,
+  { data, ...customConfig }: EndpointOptions & RequestInit = {},
+) {
   const headers: RequestInit['headers'] = {};
 
   if (data) {
@@ -17,12 +20,17 @@ export async function fetcher(endpoint: string, { data, ...customConfig }: Endpo
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, config);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
+      config,
+    );
 
     if (response.status === 401) {
       // handle unauthorized error
     }
+
     const data = await response.json();
+
     if (response.ok) {
       return data;
     } else {
