@@ -26,6 +26,12 @@ export interface Typegen0 {
     deleteBoardActor: 'DELETE_BOARD';
     updateBoardActor: 'UPDATE_BOARD';
   };
-  'matchesStates': 'adding' | 'deleting' | 'failure' | 'idle' | 'updating' | 'waiting';
+  'matchesStates':
+    | 'adding'
+    | 'deleting'
+    | 'failure'
+    | 'idle'
+    | 'updating'
+    | 'waiting';
   'tags': never;
 }

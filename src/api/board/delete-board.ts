@@ -1,14 +1,13 @@
+import { fetcher } from '@/utils/api-client';
+
 export type DeleteBoardParams = {
   id: string;
 };
 
-export const deleteBoardPath = (id: string) => `http://localhost:4000/board/${id}`;
+export const deleteBoardPath = (id: string) => `board/${id}`;
 
 export const deleteBoardAPI = async ({ id }: DeleteBoardParams) => {
-  const response = await fetch(deleteBoardPath(id), {
+  return await fetcher(deleteBoardPath(id), {
     method: 'DELETE',
   });
-
-  const data = await response.json();
-  return data;
 };

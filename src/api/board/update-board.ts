@@ -1,18 +1,15 @@
+import { fetcher } from '@/utils/api-client';
+
 export type UpdateBoardParams = {
   id: string;
   title?: string;
 };
 
-export const updateBoardPath = (id: string) => `http://localhost:4000/board/${id}`;
+export const updateBoardPath = (id: string) => `board/${id}`;
 
 export const updateBoardAPI = async (board: UpdateBoardParams) => {
-  const response = await fetch(updateBoardPath(board.id), {
+  return await fetcher(updateBoardPath(board.id), {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(board),
+    data: board,
   });
-  const data = await response.json();
-  return data;
 };
