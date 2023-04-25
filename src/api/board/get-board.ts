@@ -1,4 +1,4 @@
-import { Board } from '@/types/board.type';
+import type { Board } from '@/types/board.type';
 import { fetcher } from '@/utils/api-client';
 
 export const getBoardsPath = () => 'board';
