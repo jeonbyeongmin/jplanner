@@ -5,7 +5,15 @@ import { HiPlus } from 'react-icons/hi';
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu';
 import { BoardActorContext } from '@/contexts/global-state-provider';
 import { boardTitleMachine } from '@/machines/board/board-title-machine';
-import { Box, Button, Flex, IconButton, Input, Text, Tooltip, useOutsideClick } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  IconButton,
+  Input,
+  Text,
+  Tooltip,
+  useOutsideClick,
+} from '@chakra-ui/react';
 import { useMachine } from '@xstate/react';
 
 interface Props {
@@ -17,7 +25,9 @@ export function BoardHeader({ title, boardID }: Props) {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const boardRef = BoardActorContext.useActorRef();
-  const [current, send] = useMachine(boardTitleMachine, { context: { boardRef } });
+  const [current, send] = useMachine(boardTitleMachine, {
+    context: { boardRef },
+  });
 
   const handleSubmit = () => {
     send({ type: 'SUBMIT', id: boardID });
@@ -84,14 +94,30 @@ export function BoardHeader({ title, boardID }: Props) {
             p={2}
             autoFocus
           />
-          <Button onClick={handleSubmit} isDisabled={!current.context.pendingTitle}>
+          <Button
+            onClick={handleSubmit}
+            isDisabled={!current.context.pendingTitle}
+          >
             확인
           </Button>
           <Button onClick={handleCancel}>취소</Button>
         </Flex>
       ) : (
-        <Flex p={2} px={3} _hover={{ bgColor: 'gray.100' }} borderRadius='lg' gap={2} align='center'>
-          <Box w={2} h={2} bgColor='green.400' flexShrink={0} borderRadius='full' />
+        <Flex
+          p={2}
+          px={3}
+          _hover={{ bgColor: 'gray.100' }}
+          borderRadius='lg'
+          gap={2}
+          align='center'
+        >
+          {/* <Box
+            w={2}
+            h={2}
+            bgColor='green.400'
+            flexShrink={0}
+            borderRadius='full'
+          /> */}
           <Tooltip label={title} openDelay={1000}>
             <Text
               fontSize='xl'
@@ -109,7 +135,13 @@ export function BoardHeader({ title, boardID }: Props) {
       )}
       <Flex gap={2}>
         <Tooltip label='새로운 작업 리스트 추가'>
-          <IconButton aria-label='Add' icon={<HiPlus />} variant='outline' fontSize={20} color='gray.500' />
+          <IconButton
+            aria-label='Add'
+            icon={<HiPlus />}
+            variant='outline'
+            fontSize={20}
+            color='gray.500'
+          />
         </Tooltip>
         <BoardHeaderMenu onEdit={handleEdit} onDelete={handleDelete} />
       </Flex>
