@@ -36,6 +36,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/whatwg-fetch": "^0.0.33",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "eslint-config-prettier": "^8.8.0",
@@ -47,8 +48,8 @@
     "jest-environment-jsdom": "^29.5.0",
     "json-server": "^0.17.3",
     "msw": "^1.2.1",
-    "node-fetch": "^3.3.1",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "whatwg-fetch": "^3.6.2"
   },
   "msw": {
     "workerDirectory": "public"
