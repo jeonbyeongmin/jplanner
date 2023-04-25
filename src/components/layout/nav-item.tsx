@@ -24,9 +24,15 @@ export function NavItem({ content, isCurrent }: Props) {
         position='relative'
         visibility='visible'
       >
-        <Flex flex={1} overflow='hidden' h={7} wordBreak='break-all' position='relative'>
+        <Flex
+          flex={1}
+          overflow='hidden'
+          h={7}
+          wordBreak='break-all'
+          position='relative'
+        >
           <Flex align='center' gap={2} flexShrink={0}>
-            <Box w={1.5} h={1.5} bgColor='green.400' borderRadius='full' />
+            {/* <Box w={1.5} h={1.5} bgColor='green.400' borderRadius='full' /> */}
             <Text>{content}</Text>
           </Flex>
           <Box
@@ -36,7 +42,9 @@ export function NavItem({ content, isCurrent }: Props) {
             zIndex={10}
             w={20}
             bgGradient={`linear(to-l, ${bgColors.default}, rgba(0,0,0,0))`}
-            _groupHover={{ bgGradient: `linear(to-l, ${bgColors.hover}, rgba(0,0,0,0))` }}
+            _groupHover={{
+              bgGradient: `linear(to-l, ${bgColors.hover}, rgba(0,0,0,0))`,
+            }}
           />
         </Flex>
       </Flex>

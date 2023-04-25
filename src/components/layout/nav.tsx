@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { getBoardsPath } from '@/api/board/get-board';
 import { NavItem } from '@/components/layout/nav-item';
 import { BoardActorContext } from '@/contexts/global-state-provider';
-import { Board } from '@/types/board.type';
+import type { Board } from '@/types/board.type';
 import { getBoardRoute } from '@/utils/routes';
 import { Flex } from '@chakra-ui/react';
 
@@ -38,7 +38,11 @@ export function Nav() {
       <Flex as='li' direction='column'>
         {state.context.boards?.map(({ id, title }) => (
           <Link key={id} href={getBoardRoute(id)}>
-            <NavItem key={id} content={title} isCurrent={router.query.id === id} />
+            <NavItem
+              key={id}
+              content={title}
+              isCurrent={router.query.id === id}
+            />
           </Link>
         ))}
       </Flex>
