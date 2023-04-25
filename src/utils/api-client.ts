@@ -4,7 +4,9 @@ interface EndpointOptions {
 
 export async function fetcher(
   endpoint: string,
-  { data, ...customConfig }: EndpointOptions & RequestInit = {},
+  { method, data, ...customConfig }: EndpointOptions & RequestInit = {
+    method: 'GET',
+  },
 ) {
   const headers: RequestInit['headers'] = {};
 
@@ -13,9 +15,9 @@ export async function fetcher(
   }
 
   const config: RequestInit = {
-    method: data ? 'POST' : 'GET',
-    body: data ? JSON.stringify(data) : undefined,
+    method,
     headers,
+    body: data ? JSON.stringify(data) : undefined,
     ...customConfig,
   };
 
@@ -24,10 +26,6 @@ export async function fetcher(
       `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
       config,
     );
-
-    if (response.status === 401) {
-      // handle unauthorized error
-    }
 
     const data = await response.json();
 

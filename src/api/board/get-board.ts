@@ -4,7 +4,5 @@ import { fetcher } from '@/utils/api-client';
 export const getBoardsPath = () => 'board';
 
 export const getBoardsAPI = async (): Promise<Board[]> => {
-  const data = await fetcher(getBoardsPath());
-
-  return data;
+  return await fetcher(getBoardsPath());
 };
