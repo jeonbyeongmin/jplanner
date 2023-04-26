@@ -123,7 +123,9 @@ export const boardMachine = createMachine(
       updateData: assign({
         boards: (_, event) => {
           const compare = (a: Board, b: Board) => {
-            return b.updatedAt === a.updatedAt ? b.createdAt - a.createdAt : b.updatedAt - a.updatedAt;
+            return b.updatedAt === a.updatedAt
+              ? b.createdAt - a.createdAt
+              : b.updatedAt - a.updatedAt;
           };
 
           return event.payload?.sort(compare) ?? null;
@@ -141,33 +143,43 @@ export const boardMachine = createMachine(
         return data;
       },
       updateBoardActor: async (context, event) => {
-        return mutate(getBoardsPath(), updateBoard(context.boards, event.payload), {
-          optimisticData: () => {
-            if (!context.boards) {
-              return null;
-            }
+        return mutate(
+          getBoardsPath(),
+          updateBoard(context.boards, event.payload),
+          {
+            optimisticData: () => {
+              if (!context.boards) {
+                return null;
+              }
 
-            return context.boards.map((item) => {
-              return item.id === event.payload.id ? event.payload : item;
-            });
+              return context.boards.map((item) => {
+                return item.id === event.payload.id ? event.payload : item;
+              });
+            },
+            rollbackOnError: true,
           },
-          rollbackOnError: true,
-        });
+        );
       },
       deleteBoardActor: async (context, event) => {
-        return mutate(getBoardsPath(), deleteBoard(context.boards, event.payload.id), {
-          optimisticData: () => {
-            if (!context.boards) {
-              return null;
-            }
+        return mutate(
+          getBoardsPath(),
+          deleteBoard(context.boards, event.payload.id),
+          {
+            optimisticData: () => {
+              if (!context.boards) {
+                return null;
+              }
 
-            const newBoards = context.boards.filter((item) => item.id !== event.payload.id);
-            event.navigateToBoard(newBoards[0]?.id ?? '');
+              const newBoards = context.boards.filter(
+                (item) => item.id !== event.payload.id,
+              );
+              event.navigateToBoard(newBoards[0]?.id ?? '');
 
-            return newBoards;
+              return newBoards;
+            },
+            rollbackOnError: true,
           },
-          rollbackOnError: true,
-        });
+        );
       },
     },
   },
@@ -179,7 +191,10 @@ const createBoard = async (board: CreateBoardParams): Promise<Board> => {
   return createdBoard;
 };
 
-const updateBoard = async (boards: Board[] | null, board: UpdateBoardParams) => {
+const updateBoard = async (
+  boards: Board[] | null,
+  board: UpdateBoardParams,
+) => {
   if (!boards) {
     return null;
   }
