@@ -14,6 +14,7 @@ import type {
 } from '@/api/boards/update-board';
 import type { Board } from '@/types/board.type';
 import type { ErrorType } from '@/types/error.type';
+
 const schema = {
   context: {} as {
     boards: Board[] | null;

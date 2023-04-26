@@ -2,13 +2,25 @@ import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { HiDotsVertical } from 'react-icons/hi';
 
 import { useToggle } from '@/hooks/use-toggle';
-import { Box, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from '@chakra-ui/react';
 
 export function TaskListMenu() {
   const [isOpen, handleToggle] = useToggle();
 
   return (
-    <Menu placement='bottom-end' isOpen={isOpen} onOpen={handleToggle} onClose={handleToggle}>
+    <Menu
+      placement='bottom-end'
+      isOpen={isOpen}
+      onOpen={handleToggle}
+      onClose={handleToggle}
+    >
       <MenuButton
         as={IconButton}
         aria-label='Options'

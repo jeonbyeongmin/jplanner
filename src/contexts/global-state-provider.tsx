@@ -1,7 +1,9 @@
 import { boardMachine } from '@/machines/board/board-machine';
 import { createActorContext } from '@xstate/react';
 
-export const BoardActorContext = createActorContext(boardMachine, { devTools: true });
+export const BoardActorContext = createActorContext(boardMachine, {
+  devTools: true,
+});
 
 interface Props {
   children: React.ReactNode;

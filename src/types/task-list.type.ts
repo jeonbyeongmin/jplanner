@@ -1,4 +1,4 @@
-import { Task } from '@/types/task.type';
+import type { Task } from '@/types/task.type';
 
 export interface TaskList {
   id: string;
