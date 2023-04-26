@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { TaskList } from '@/components/task-list';
 import { Flex } from '@chakra-ui/react';
+
+import type { DropResult } from 'react-beautiful-dnd';
 
 interface TaskList {
   id: string;
@@ -32,7 +34,11 @@ export function BoardContent() {
     const { destination, source, type } = result;
 
     // dropped outside the list
-    if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    ) {
       return;
     }
 
@@ -45,8 +51,12 @@ export function BoardContent() {
 
     // reorder tasks
     if (type === 'task') {
-      const sourceTaskList = taskLists.find((tl) => tl.id === source.droppableId);
-      const destinationTaskList = taskLists.find((tl) => tl.id === destination.droppableId);
+      const sourceTaskList = taskLists.find(
+        (tl) => tl.id === source.droppableId,
+      );
+      const destinationTaskList = taskLists.find(
+        (tl) => tl.id === destination.droppableId,
+      );
 
       if (sourceTaskList && destinationTaskList) {
         if (sourceTaskList.id === destinationTaskList.id) {
@@ -86,12 +96,26 @@ export function BoardContent() {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='tasklist' direction='horizontal' type='tasklist'>
         {(provided) => (
-          <Flex ref={provided.innerRef} {...provided.droppableProps} align='start'>
+          <Flex
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            align='start'
+          >
             {taskLists.map(({ id, name, tasks }, index) => (
               <Draggable key={id} draggableId={id} index={index}>
                 {(provided) => (
-                  <Flex mr={5} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    <TaskList key={id} listID={id} tasks={tasks} listTitle={name} />
+                  <Flex
+                    mr={5}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <TaskList
+                      key={id}
+                      listID={id}
+                      tasks={tasks}
+                      listTitle={name}
+                    />
                   </Flex>
                 )}
               </Draggable>

@@ -17,7 +17,10 @@ export function SEO() {
       <meta name='og:url' content='https://jplanner.vercel.app' />
       <meta property='og:image' content='/og.png' />
 
-      <meta name='viewport' content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width' />
+      <meta
+        name='viewport'
+        content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width'
+      />
       <meta name='keywords' content='todolist, todo, agile, agile todo' />
       <meta name='description' content={description} />
 

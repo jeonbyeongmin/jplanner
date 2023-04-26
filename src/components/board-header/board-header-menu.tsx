@@ -1,7 +1,13 @@
 import { FiArchive, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { HiDotsVertical } from 'react-icons/hi';
 
-import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from '@chakra-ui/react';
 
 interface Props {
   onEdit: () => void;
@@ -27,7 +33,11 @@ export function BoardHeaderMenu({ onEdit, onDelete }: Props) {
         <MenuItem icon={<FiArchive size={16} />} iconSpacing={4}>
           아카이브로 이동
         </MenuItem>
-        <MenuItem icon={<FiTrash2 size={16} />} iconSpacing={4} onClick={onDelete}>
+        <MenuItem
+          icon={<FiTrash2 size={16} />}
+          iconSpacing={4}
+          onClick={onDelete}
+        >
           이 보드 삭제
         </MenuItem>
       </MenuList>

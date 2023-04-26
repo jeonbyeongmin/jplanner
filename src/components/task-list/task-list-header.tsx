@@ -10,9 +10,22 @@ interface Props {
 
 export function TaskListHeader({ listTitle, numberOfTasks }: Props) {
   return (
-    <Flex bgColor='white' borderRadius='md' align='center' justify='space-between' gap={2}>
+    <Flex
+      bgColor='white'
+      borderRadius='md'
+      align='center'
+      justify='space-between'
+      gap={2}
+    >
       <Flex align='center' gap={1}>
-        <Flex _hover={{ bgColor: 'gray.100' }} py={1} px={3} borderRadius='md' userSelect='none' cursor='pointer'>
+        <Flex
+          _hover={{ bgColor: 'gray.100' }}
+          py={1}
+          px={3}
+          borderRadius='md'
+          userSelect='none'
+          cursor='pointer'
+        >
           <Text wordBreak='break-all' noOfLines={1} fontWeight='semibold'>
             {listTitle}
           </Text>

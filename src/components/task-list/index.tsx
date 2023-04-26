@@ -37,7 +37,12 @@ export function TaskList({ listID, listTitle, tasks }: Props) {
               {tasks.map(({ id, ...rest }, index) => (
                 <Draggable key={id} draggableId={id} index={index}>
                   {(provided) => (
-                    <Flex ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} w='full'>
+                    <Flex
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      w='full'
+                    >
                       <Task key={id} id={id} {...rest} />
                     </Flex>
                   )}

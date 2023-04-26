@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { resetServerContext } from 'react-beautiful-dnd';
 
 import { BoardContent } from '@/components/board-content';
@@ -15,7 +15,14 @@ export default function BoardDetail({ boardID }: Props) {
   const title = boards?.find((board) => board.id === boardID)?.title ?? '';
 
   return (
-    <Flex direction='column' align='start' h='full' w='full' flex={1} overflowX='auto'>
+    <Flex
+      direction='column'
+      align='start'
+      h='full'
+      w='full'
+      flex={1}
+      overflowX='auto'
+    >
       <BoardHeader title={title} boardID={boardID} />
       <Flex p={5} pt={28}>
         <BoardContent />
