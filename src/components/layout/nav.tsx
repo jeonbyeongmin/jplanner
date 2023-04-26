@@ -3,12 +3,13 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { getBoardsPath } from '@/api/board/get-board';
+import { getBoardsPath } from '@/api/boards/paths';
 import { NavItem } from '@/components/layout/nav-item';
 import { BoardActorContext } from '@/contexts/global-state-provider';
-import type { Board } from '@/types/board.type';
 import { getBoardRoute } from '@/utils/routes';
 import { Flex } from '@chakra-ui/react';
+
+import type { Board } from '@/types/board.type';
 
 export function Nav() {
   const router = useRouter();

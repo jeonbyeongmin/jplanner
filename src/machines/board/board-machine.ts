@@ -1,17 +1,19 @@
 import { mutate } from 'swr';
 import { assign, createMachine } from 'xstate';
 
-import { createBoardAPI } from '@/api/board/create-board';
-import { deleteBoardAPI } from '@/api/board/delete-board';
-import { getBoardsPath } from '@/api/board/get-board';
-import { updateBoardAPI } from '@/api/board/update-board';
+import { createBoardAPI } from '@/api/boards/create-board';
+import { deleteBoardAPI } from '@/api/boards/delete-board';
+import { getBoardsPath } from '@/api/boards/paths';
+import { updateBoardAPI } from '@/api/boards/update-board';
 
-import type { CreateBoardParams } from '@/api/board/create-board';
-import type { DeleteBoardParams } from '@/api/board/delete-board';
-import type { UpdateBoardParams } from '@/api/board/update-board';
+import type { CreateBoardParams } from '@/api/boards/create-board';
+import type { DeleteBoardParams } from '@/api/boards/delete-board';
+import type {
+  UpdateBoardParams,
+  UpdateBoardBody,
+} from '@/api/boards/update-board';
 import type { Board } from '@/types/board.type';
 import type { ErrorType } from '@/types/error.type';
-
 const schema = {
   context: {} as {
     boards: Board[] | null;
@@ -36,7 +38,7 @@ const schema = {
       }
     | {
         type: 'UPDATE_BOARD';
-        payload: UpdateBoardParams;
+        payload: UpdateBoardParams & UpdateBoardBody;
       },
 
   services: {} as {
@@ -186,25 +188,26 @@ export const boardMachine = createMachine(
 );
 
 const createBoard = async (board: CreateBoardParams): Promise<Board> => {
-  const createdBoard = await createBoardAPI(board);
+  const { data } = await createBoardAPI(board);
 
-  return createdBoard;
+  return data;
 };
 
 const updateBoard = async (
   boards: Board[] | null,
-  board: UpdateBoardParams,
+  board: UpdateBoardParams & UpdateBoardBody,
 ) => {
   if (!boards) {
     return null;
   }
 
-  const updatedBoard = await updateBoardAPI(board);
+  const { id, title } = board;
+  const { data } = await updateBoardAPI({ id }, { title });
 
   if (boards) {
-    const index = boards.findIndex((item) => item.id === updatedBoard.id);
+    const index = boards.findIndex((item) => item.id === data.id);
     if (index !== -1) {
-      boards[index] = updatedBoard;
+      boards[index] = data;
     }
   }
 

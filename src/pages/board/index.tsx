@@ -1,8 +1,7 @@
-import { GetServerSideProps } from 'next';
-
-import { getBoardsAPI } from '@/api/board/get-board';
+import type { GetServerSideProps } from 'next';
 
 import type { Board } from '@/types/board.type';
+import { getBoardsAPI } from '@/api/boards/get-board';
 
 export default function BoardPage() {
   return <div>Board</div>;
