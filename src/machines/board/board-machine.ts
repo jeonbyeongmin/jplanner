@@ -188,7 +188,7 @@ export const boardMachine = createMachine(
 );
 
 const createBoard = async (board: CreateBoardParams): Promise<Board> => {
-  const { data } = await createBoardAPI(board);
+  const data = await createBoardAPI(board);
 
   return data;
 };
