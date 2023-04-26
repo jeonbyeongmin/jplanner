@@ -10,7 +10,7 @@ export async function fetcher(
 ) {
   const headers: RequestInit['headers'] = {};
 
-  if (data) {
+  if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
     headers['Content-Type'] = 'application/json';
   }
 
@@ -29,11 +29,7 @@ export async function fetcher(
 
     const data = await response.json();
 
-    if (response.ok) {
-      return data;
-    } else {
-      return Promise.reject(data);
-    }
+    return response.ok ? data : Promise.reject(data);
   } catch (error) {
     return Promise.reject(error);
   }
