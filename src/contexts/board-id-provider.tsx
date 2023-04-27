@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { createContext } from 'react';
+import { createContext, useMemo } from 'react';
 
 export const BoardIDContext = createContext<string>('');
 
@@ -9,8 +9,12 @@ interface Props {
 
 export const BoardIDProvider = ({ children }: Props) => {
   const router = useRouter();
-  const queries = router.query['board-id'];
-  const boardID = Array.isArray(queries) ? queries[0] : queries ?? '';
+
+  const queries = useMemo(() => router.query['board-id'], [router.query]);
+
+  const boardID = useMemo(() => {
+    return Array.isArray(queries) ? queries[0] : queries ?? '';
+  }, [queries]);
 
   return (
     <BoardIDContext.Provider value={boardID}>
