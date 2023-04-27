@@ -1,13 +1,10 @@
 import { Flex, Text } from '@chakra-ui/react';
 
 interface Props {
-  id: string;
-  name: string;
-  description: string;
-  completed: boolean;
+  title: string;
 }
 
-export function Task({ name }: Props) {
+export function Task({ title }: Props) {
   return (
     <Flex
       p={4}
@@ -21,7 +18,7 @@ export function Task({ name }: Props) {
       w='full'
       mb={4}
     >
-      <Text noOfLines={4}>{name}</Text>
+      <Text noOfLines={4}>{title}</Text>
     </Flex>
   );
 }

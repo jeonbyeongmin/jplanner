@@ -12,19 +12,19 @@ import type {
   UpdateBoardParams,
   UpdateBoardBody,
 } from '@/api/boards/update-board';
-import type { Board } from '@/types/board.type';
+import type { BoardType } from '@/types/board.type';
 import type { ErrorType } from '@/types/error.type';
 
 const schema = {
   context: {} as {
-    boards: Board[] | null;
+    boards: BoardType[] | null;
     error: ErrorType;
   },
 
   events: {} as
     | {
         type: 'UPDATE_DATA';
-        payload: Board[] | undefined;
+        payload: BoardType[] | undefined;
         error: ErrorType;
       }
     | {
@@ -44,13 +44,13 @@ const schema = {
 
   services: {} as {
     addBoardActor: {
-      data: Board | null | undefined;
+      data: BoardType | null | undefined;
     };
     deleteBoardActor: {
-      data: Board[] | null | undefined;
+      data: BoardType[] | null | undefined;
     };
     updateBoardActor: {
-      data: Board[] | null | undefined;
+      data: BoardType[] | null | undefined;
     };
   },
 };
@@ -125,7 +125,7 @@ export const boardMachine = createMachine(
     actions: {
       updateData: assign({
         boards: (_, event) => {
-          const compare = (a: Board, b: Board) => {
+          const compare = (a: BoardType, b: BoardType) => {
             return b.updatedAt === a.updatedAt
               ? b.createdAt - a.createdAt
               : b.updatedAt - a.updatedAt;
@@ -188,14 +188,14 @@ export const boardMachine = createMachine(
   },
 );
 
-const createBoard = async (board: CreateBoardParams): Promise<Board> => {
+const createBoard = async (board: CreateBoardParams): Promise<BoardType> => {
   const data = await createBoardAPI(board);
 
   return data;
 };
 
 const updateBoard = async (
-  boards: Board[] | null,
+  boards: BoardType[] | null,
   board: UpdateBoardParams & UpdateBoardBody,
 ) => {
   if (!boards) {
@@ -215,7 +215,7 @@ const updateBoard = async (
   return boards;
 };
 
-const deleteBoard = async (boards: Board[] | null, id: string) => {
+const deleteBoard = async (boards: BoardType[] | null, id: string) => {
   if (!boards) {
     return null;
   }

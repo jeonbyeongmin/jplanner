@@ -4,17 +4,11 @@ import { Task } from '@/components/task';
 import { TaskListHeader } from '@/components/task-list/task-list-header';
 import { Flex } from '@chakra-ui/react';
 
-interface Task {
-  id: string;
-  name: string;
-  description: string;
-  completed: boolean;
-}
-
+import type { TaskType } from '@/types/task.type';
 interface Props {
   listID: string;
   listTitle: string;
-  tasks: Task[];
+  tasks: TaskType[];
 }
 
 export function TaskList({ listID, listTitle, tasks }: Props) {
@@ -34,7 +28,7 @@ export function TaskList({ listID, listTitle, tasks }: Props) {
         <Droppable droppableId={listID} type='task'>
           {(provided) => (
             <Flex ref={provided.innerRef} direction='column' w='full'>
-              {tasks.map(({ id, ...rest }, index) => (
+              {tasks.map(({ id, title }, index) => (
                 <Draggable key={id} draggableId={id} index={index}>
                   {(provided) => (
                     <Flex
@@ -43,7 +37,7 @@ export function TaskList({ listID, listTitle, tasks }: Props) {
                       {...provided.dragHandleProps}
                       w='full'
                     >
-                      <Task key={id} id={id} {...rest} />
+                      <Task key={id} title={title} />
                     </Flex>
                   )}
                 </Draggable>

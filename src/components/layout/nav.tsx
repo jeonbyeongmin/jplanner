@@ -1,28 +1,12 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import useSWR from 'swr';
 
-import { getBoardsPath } from '@/api/boards/paths';
 import { NavItem } from '@/components/layout/nav-item';
-import { BoardActorContext } from '@/contexts/global-state-provider';
+import { useBoard } from '@/hooks/use-board';
 import { getBoardRoute } from '@/utils/routes';
 import { Flex } from '@chakra-ui/react';
 
-import type { Board } from '@/types/board.type';
-
 export function Nav() {
-  const router = useRouter();
-  const { data, error } = useSWR<Board[]>(getBoardsPath());
-  const [state, send] = BoardActorContext.useActor();
-
-  useEffect(() => {
-    send({
-      type: 'UPDATE_DATA',
-      payload: data,
-      error,
-    });
-  }, [data, error, send]);
+  const { boardID, boards } = useBoard();
 
   return (
     <Flex
@@ -37,13 +21,9 @@ export function Nav() {
       _hover={{ visibility: 'visible' }}
     >
       <Flex as='li' direction='column'>
-        {state.context.boards?.map(({ id, title }) => (
+        {boards?.map(({ id, title }) => (
           <Link key={id} href={getBoardRoute(id)}>
-            <NavItem
-              key={id}
-              content={title}
-              isCurrent={router.query.id === id}
-            />
+            <NavItem key={id} content={title} isCurrent={boardID === id} />
           </Link>
         ))}
       </Flex>

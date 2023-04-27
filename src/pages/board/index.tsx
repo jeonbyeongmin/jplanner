@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from 'next';
 
-import type { Board } from '@/types/board.type';
+import type { BoardType } from '@/types/board.type';
 import { getBoardsAPI } from '@/api/boards/get-board';
 
 export default function BoardPage() {
@@ -10,7 +10,7 @@ export default function BoardPage() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const {} = context;
 
-  const compare = (a: Board, b: Board) => {
+  const compare = (a: BoardType, b: BoardType) => {
     if (b.updatedAt === a.updatedAt) {
       return b.createdAt - a.createdAt;
     }

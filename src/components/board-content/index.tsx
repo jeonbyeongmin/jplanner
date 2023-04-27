@@ -1,28 +1,21 @@
-import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { TaskList } from '@/components/task-list';
 import { Flex } from '@chakra-ui/react';
 
+import type { TaskListType } from '@/types/task-list.type';
 import type { DropResult } from 'react-beautiful-dnd';
 
-interface TaskList {
-  id: string;
-  name: string;
-  tasks: Task[];
+interface Props {
+  taskLists: TaskListType[];
 }
 
-interface Task {
-  id: string;
-  name: string;
-  description: string;
-  completed: boolean;
-}
-
-export function BoardContent() {
-  const [taskLists, setTaskLists] = useState(tls);
-
-  const reorder = (lists: TaskList[], startIndex: number, endIndex: number) => {
+export function BoardContent({ taskLists }: Props) {
+  const reorder = (
+    lists: TaskListType[],
+    startIndex: number,
+    endIndex: number,
+  ) => {
     const result = Array.from(lists);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -101,7 +94,7 @@ export function BoardContent() {
             {...provided.droppableProps}
             align='start'
           >
-            {taskLists.map(({ id, name, tasks }, index) => (
+            {taskLists.map(({ id, title, tasks }, index) => (
               <Draggable key={id} draggableId={id} index={index}>
                 {(provided) => (
                   <Flex
@@ -114,7 +107,7 @@ export function BoardContent() {
                       key={id}
                       listID={id}
                       tasks={tasks}
-                      listTitle={name}
+                      listTitle={title}
                     />
                   </Flex>
                 )}
@@ -127,84 +120,3 @@ export function BoardContent() {
     </DragDropContext>
   );
 }
-
-const tls = [
-  {
-    id: 'asdf1234',
-    name: 'Todo',
-    tasks: [
-      {
-        id: '1asdfzxcv',
-        name: 'Too long task name Too long task name Too long task name Too long task name Too long task name Too long task name Too long task name Too long task name Too long task name  ',
-        description: 'Description 1',
-        completed: false,
-      },
-      {
-        id: '2asdfcxzv',
-        name: 'Task 2asdf',
-        description: 'Description 2',
-        completed: false,
-      },
-      {
-        id: '3zxcvzxcv',
-        name: 'Taskasdfzxv 3',
-        description: 'Description 3',
-        completed: false,
-      },
-      {
-        id: '4qwerasdfsa',
-        name: 'Tsadfasask 4',
-        description: 'Description 3',
-        completed: false,
-      },
-    ],
-  },
-  {
-    id: 'asdf1235',
-    name: 'In progress',
-    tasks: [
-      {
-        id: '5asdfqasdf',
-        name: 'Tasqwerk 1',
-        description: 'Description 1',
-        completed: false,
-      },
-      {
-        id: '6asdfasdf',
-        name: 'Tasdfzxcvsk 2',
-        description: 'Description 2',
-        completed: false,
-      },
-      {
-        id: '7xcvzcv',
-        name: 'Tazxcvxsdfask 3',
-        description: 'Description 3',
-        completed: false,
-      },
-    ],
-  },
-  {
-    id: 'asdf1236',
-    name: 'Done',
-    tasks: [
-      {
-        id: '8zxcva',
-        name: 'Taswerqdsafk 1',
-        description: 'Description 1',
-        completed: false,
-      },
-      {
-        id: '9sadfsa',
-        name: 'Taxcfvadsk 2',
-        description: 'Description 2',
-        completed: false,
-      },
-      {
-        id: '10asdfasfd',
-        name: 'Tsdfasvcsask 3',
-        description: 'Description 3',
-        completed: false,
-      },
-    ],
-  },
-];
