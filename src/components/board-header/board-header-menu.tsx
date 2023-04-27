@@ -1,4 +1,4 @@
-import { FiArchive, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { HiDotsVertical } from 'react-icons/hi';
 
 import {
@@ -29,9 +29,6 @@ export function BoardHeaderMenu({ onEdit, onDelete }: Props) {
       <MenuList zIndex='upperDropdown'>
         <MenuItem icon={<FiEdit size={16} />} iconSpacing={4} onClick={onEdit}>
           보드 제목 수정
-        </MenuItem>
-        <MenuItem icon={<FiArchive size={16} />} iconSpacing={4}>
-          아카이브로 이동
         </MenuItem>
         <MenuItem
           icon={<FiTrash2 size={16} />}

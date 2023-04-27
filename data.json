@@ -1,5 +1,5 @@
 {
-  "board": [
+  "boards": [
     {
       "title": "New board 6",
       "createdAt": 1681797431956,
@@ -31,9 +31,9 @@
       "id": "1887n1pg5"
     },
     {
-      "title": "New boardasdfasdfsdfsdf",
+      "title": "New boardasdfasdfsdfsdfsdfsdf",
       "createdAt": 1681814834964,
-      "updatedAt": 1682244810479,
+      "updatedAt": 1682576219425,
       "id": "c3z7zldac"
     },
     {
