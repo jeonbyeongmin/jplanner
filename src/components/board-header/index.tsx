@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { HiPlus } from 'react-icons/hi';
 
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu';
-import { BoardActorContext } from '@/contexts/global-state-provider';
+import { BoardActorContext } from '@/contexts/board-actor-provider';
 import { boardTitleMachine } from '@/machines/board/board-title-machine';
 import {
   Button,

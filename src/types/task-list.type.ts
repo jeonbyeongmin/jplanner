@@ -1,8 +1,8 @@
-import type { Task } from '@/types/task.type';
+import type { TaskType } from '@/types/task.type';
 
-export interface TaskList {
+export interface TaskListType {
   id: string;
   title: string;
   boardId: string;
-  tasks: Task[];
+  tasks: TaskType[];
 }
