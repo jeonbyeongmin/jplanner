@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { TaskList } from '@/components/task-list';
@@ -5,12 +6,13 @@ import { Flex } from '@chakra-ui/react';
 
 import type { TaskListType } from '@/types/task-list.type';
 import type { DropResult } from 'react-beautiful-dnd';
-
 interface Props {
   taskLists: TaskListType[];
 }
 
-export function BoardContent({ taskLists }: Props) {
+export function BoardContent({ taskLists: list }: Props) {
+  const [taskLists, setTaskLists] = useState<TaskListType[]>(list);
+
   const reorder = (
     lists: TaskListType[],
     startIndex: number,
