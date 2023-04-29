@@ -6,6 +6,7 @@ import { Flex } from '@chakra-ui/react';
 
 import type { TaskListType } from '@/types/task-list.type';
 import type { DropResult } from 'react-beautiful-dnd';
+
 interface Props {
   taskLists: TaskListType[];
 }

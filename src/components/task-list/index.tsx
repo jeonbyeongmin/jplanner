@@ -5,6 +5,7 @@ import { TaskListHeader } from '@/components/task-list/task-list-header';
 import { Flex } from '@chakra-ui/react';
 
 import type { TaskType } from '@/types/task.type';
+
 interface Props {
   listID: string;
   listTitle: string;
