@@ -1,6 +1,6 @@
-import { createBoardAPI } from './create-board';
+import { createBoardAPI } from '../create-board';
 
-import type { CreateBoardBody } from './create-board';
+import type { CreateBoardBody } from '../create-board';
 
 describe('createBoardAPI 테스트', () => {
   const params = {};
