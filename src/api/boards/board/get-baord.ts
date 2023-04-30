@@ -1,4 +1,4 @@
-import { getBoardPath } from '@/api/boards/paths';
+import { generateBoardsPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
 export type GetBoardParams = {
@@ -6,5 +6,5 @@ export type GetBoardParams = {
 };
 
 export async function getBoardAPI({ boardID }: GetBoardParams) {
-  return await fetcher(getBoardPath(boardID));
+  return await fetcher(generateBoardsPath({ id: boardID }));
 }

@@ -2,14 +2,13 @@ import { Noto_Sans } from 'next/font/google';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { getBoardsPath } from '@/api/boards/paths';
+import { generateBoardsPath } from '@/api/boards/paths';
 import { SEO } from '@/components/layout/seo';
 import { Sidebar } from '@/components/layout/sidebar';
 import { BoardActorContext } from '@/contexts/board-actor-provider';
 import { Flex } from '@chakra-ui/react';
 
 import type { BoardType } from '@/types/board.type';
-
 interface Props {
   children: React.ReactNode;
 }
@@ -20,7 +19,7 @@ const notoSans = Noto_Sans({
 });
 
 export function Layout({ children }: Props) {
-  const { data, error } = useSWR<BoardType[]>(getBoardsPath());
+  const { data, error } = useSWR<BoardType[]>(generateBoardsPath());
   const boardActorRef = BoardActorContext.useActorRef();
 
   useEffect(() => {

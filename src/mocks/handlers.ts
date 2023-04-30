@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 
-import { getBoardsPath } from '@/api/boards/paths';
+import { generateBoardsPath } from '@/api/boards/paths';
 
 const board = [
   // Retrieve boards
   rest.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}`,
     (_, res, ctx) => {
       return res(
         ctx.status(200),
@@ -27,7 +27,7 @@ const board = [
 
   // Retrieve specific board
   rest.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}/:id`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}/:id`,
     (req, res, ctx) => {
       const { id } = req.params;
 
@@ -44,7 +44,7 @@ const board = [
 
   // Create board
   rest.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}`,
     (_, res, ctx) => {
       return res(ctx.status(201), ctx.json({}));
     },
@@ -52,7 +52,7 @@ const board = [
 
   // Update board
   rest.put(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}/:id`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}/:id`,
     (_, res, ctx) => {
       return res(ctx.status(200), ctx.json({}));
     },
@@ -60,7 +60,7 @@ const board = [
 
   // Partially update board
   rest.patch(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}/:id`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}/:id`,
     (_, res, ctx) => {
       return res(ctx.status(200), ctx.json({}));
     },
@@ -68,7 +68,7 @@ const board = [
 
   // Delete board
   rest.delete(
-    `${process.env.NEXT_PUBLIC_API_URL}/${getBoardsPath()}/:id`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}/:id`,
     (_, res, ctx) => {
       return res(ctx.status(204), ctx.json({}));
     },

@@ -13,7 +13,7 @@ import { assign, createMachine } from 'xstate';
 import { deleteBoardAPI } from '@/api/boards/board/delete-board';
 import { updateBoardAPI } from '@/api/boards/board/update-board';
 import { createBoardAPI } from '@/api/boards/create-board';
-import { getBoardsPath } from '@/api/boards/paths';
+import { generateBoardsPath } from '@/api/boards/paths';
 
 const schema = {
   context: {} as {
@@ -141,13 +141,13 @@ export const boardMachine = createMachine(
       addBoardActor: async (_, event) => {
         const data = await createBoard(event.payload);
         event.navigateToBoard(data.id);
-        mutate(getBoardsPath());
+        mutate(generateBoardsPath());
 
         return data;
       },
       updateBoardActor: async (context, event) => {
         return mutate(
-          getBoardsPath(),
+          generateBoardsPath(),
           updateBoard(context.boards, event.payload),
           {
             optimisticData: () => {
@@ -165,7 +165,7 @@ export const boardMachine = createMachine(
       },
       deleteBoardActor: async (context, event) => {
         return mutate(
-          getBoardsPath(),
+          generateBoardsPath(),
           deleteBoard(context.boards, event.payload.boardID),
           {
             optimisticData: () => {

@@ -1,4 +1,4 @@
-import { getBoardPath } from '@/api/boards/paths';
+import { generateBoardsPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
 export type UpdateBoardParams = {
@@ -15,7 +15,7 @@ export async function updateBoardAPI(
 ) {
   const { boardID } = params;
 
-  return await fetcher(getBoardPath(boardID), {
+  return await fetcher(generateBoardsPath({ id: boardID }), {
     method: 'PATCH',
     data: body,
   });
