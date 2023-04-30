@@ -1,6 +1,6 @@
 import { createPathGenerator } from '@/utils/path';
 
-type BoardsPathQuery = {
+export type BoardsPathQuery = {
   // Add query params here
 };
 

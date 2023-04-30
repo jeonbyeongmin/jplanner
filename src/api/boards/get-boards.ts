@@ -1,10 +1,12 @@
+import type { BoardsPathQuery } from '@/api/boards/paths';
+
 import { generateBoardsPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
-import type { EmptyParamsType } from '@/types/api.type';
+type GetBoardsParams = {
+  queries?: BoardsPathQuery;
+};
 
-export type GetBoardsParams = EmptyParamsType;
-
-export async function getBoardsAPI({}: GetBoardsParams) {
-  return await fetcher(generateBoardsPath());
+export async function getBoardsAPI({ queries }: GetBoardsParams) {
+  return await fetcher(generateBoardsPath({ queries }));
 }

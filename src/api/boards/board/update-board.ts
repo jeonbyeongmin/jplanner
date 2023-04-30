@@ -1,8 +1,11 @@
+import type { BoardsPathQuery } from '@/api/boards/paths';
+
 import { generateBoardsPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
 export type UpdateBoardParams = {
   boardID: string;
+  queries?: BoardsPathQuery;
 };
 
 export type UpdateBoardBody = {
@@ -10,12 +13,10 @@ export type UpdateBoardBody = {
 };
 
 export async function updateBoardAPI(
-  params: UpdateBoardParams,
+  { boardID, queries }: UpdateBoardParams,
   body: UpdateBoardBody,
 ) {
-  const { boardID } = params;
-
-  return await fetcher(generateBoardsPath({ id: boardID }), {
+  return await fetcher(generateBoardsPath({ id: boardID, queries }), {
     method: 'PATCH',
     data: body,
   });
