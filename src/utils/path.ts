@@ -14,6 +14,10 @@ type PathGenerator<T extends QueryParamsType> = (
 export function createPathGenerator<T extends QueryParamsType>(
   resourceName: string,
 ): PathGenerator<T> {
+  if (!resourceName) {
+    throw new Error('resourceName이 주어지지 않았습니다');
+  }
+
   return (params) => {
     const { id, queries } = params ?? {};
     let path = id ? `${resourceName}/${id}` : resourceName;
