@@ -30,7 +30,7 @@ export function BoardHeader({ title, boardID }: Props) {
   });
 
   const handleSubmit = () => {
-    send({ type: 'SUBMIT', id: boardID });
+    send({ type: 'SUBMIT', boardID });
   };
 
   const handleEdit = () => {
@@ -44,7 +44,7 @@ export function BoardHeader({ title, boardID }: Props) {
   const handleDelete = () => {
     boardRef.send({
       type: 'DELETE_BOARD',
-      payload: { id: boardID },
+      payload: { boardID },
       navigateToBoard: (id) => router.push(`/board/${id}`),
     });
   };

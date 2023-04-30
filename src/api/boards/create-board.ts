@@ -1,15 +1,20 @@
+import type { BoardType } from '@/types/board.type';
+import type { EmptyParamsType } from '@/types/api.type';
+
 import { getBoardsPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
-export type CreateBoardParams = {
-  title: string;
-};
+export type CreateBoardParams = EmptyParamsType;
+export type CreateBoardBody = Omit<BoardType, 'id' | 'createdAt' | 'updatedAt'>;
 
-export const createBoardAPI = async (board: CreateBoardParams) => {
+export async function createBoardAPI(
+  {}: CreateBoardParams,
+  board: CreateBoardBody,
+) {
   if (!board || !board.title) throw new Error('title is required');
 
   return await fetcher(getBoardsPath(), {
     method: 'POST',
     data: board,
   });
-};
+}

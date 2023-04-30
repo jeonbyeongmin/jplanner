@@ -1,19 +1,19 @@
-import { mutate } from 'swr';
-import { assign, createMachine } from 'xstate';
-
-import { createBoardAPI } from '@/api/boards/create-board';
-import { deleteBoardAPI } from '@/api/boards/delete-board';
-import { getBoardsPath } from '@/api/boards/paths';
-import { updateBoardAPI } from '@/api/boards/update-board';
-
-import type { CreateBoardParams } from '@/api/boards/create-board';
-import type { DeleteBoardParams } from '@/api/boards/delete-board';
+import type { CreateBoardBody } from '@/api/boards/create-board';
+import type { DeleteBoardParams } from '@/api/boards/board/delete-board';
 import type {
   UpdateBoardParams,
   UpdateBoardBody,
-} from '@/api/boards/update-board';
+} from '@/api/boards/board/update-board';
 import type { BoardType } from '@/types/board.type';
 import type { ErrorType } from '@/types/error.type';
+
+import { mutate } from 'swr';
+import { assign, createMachine } from 'xstate';
+
+import { deleteBoardAPI } from '@/api/boards/board/delete-board';
+import { updateBoardAPI } from '@/api/boards/board/update-board';
+import { createBoardAPI } from '@/api/boards/create-board';
+import { getBoardsPath } from '@/api/boards/paths';
 
 const schema = {
   context: {} as {
@@ -29,7 +29,7 @@ const schema = {
       }
     | {
         type: 'ADD_BOARD';
-        payload: CreateBoardParams;
+        payload: CreateBoardBody;
         navigateToBoard: (boardID: string) => Promise<boolean>;
       }
     | {
@@ -156,7 +156,7 @@ export const boardMachine = createMachine(
               }
 
               return context.boards.map((item) => {
-                return item.id === event.payload.id ? event.payload : item;
+                return item.id === event.payload.boardID ? event.payload : item;
               });
             },
             rollbackOnError: true,
@@ -166,7 +166,7 @@ export const boardMachine = createMachine(
       deleteBoardActor: async (context, event) => {
         return mutate(
           getBoardsPath(),
-          deleteBoard(context.boards, event.payload.id),
+          deleteBoard(context.boards, event.payload.boardID),
           {
             optimisticData: () => {
               if (!context.boards) {
@@ -174,7 +174,7 @@ export const boardMachine = createMachine(
               }
 
               const newBoards = context.boards.filter(
-                (item) => item.id !== event.payload.id,
+                (item) => item.id !== event.payload.boardID,
               );
               event.navigateToBoard(newBoards[0]?.id ?? '');
 
@@ -188,8 +188,8 @@ export const boardMachine = createMachine(
   },
 );
 
-const createBoard = async (board: CreateBoardParams): Promise<BoardType> => {
-  const data = await createBoardAPI(board);
+const createBoard = async (board: CreateBoardBody): Promise<BoardType> => {
+  const data = await createBoardAPI({}, board);
 
   return data;
 };
@@ -202,8 +202,8 @@ const updateBoard = async (
     return null;
   }
 
-  const { id, title } = board;
-  const { data } = await updateBoardAPI({ id }, { title });
+  const { boardID, title } = board;
+  const { data } = await updateBoardAPI({ boardID }, { title });
 
   if (boards) {
     const index = boards.findIndex((item) => item.id === data.id);
@@ -215,12 +215,12 @@ const updateBoard = async (
   return boards;
 };
 
-const deleteBoard = async (boards: BoardType[] | null, id: string) => {
+const deleteBoard = async (boards: BoardType[] | null, boardID: string) => {
   if (!boards) {
     return null;
   }
 
-  await deleteBoardAPI({ id });
+  await deleteBoardAPI({ boardID });
 
-  return boards.filter((item) => item.id !== id);
+  return boards.filter((item) => item.id !== boardID);
 };

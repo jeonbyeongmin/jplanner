@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next';
 
 import type { BoardType } from '@/types/board.type';
-import { getBoardsAPI } from '@/api/boards/get-board';
+import { getBoardsAPI } from '@/api/boards/get-boards';
 
 export default function BoardPage() {
   return <div>Board</div>;
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return b.updatedAt - a.updatedAt;
   };
 
-  const boards = await getBoardsAPI();
+  const boards = await getBoardsAPI({});
   const sortedBoards = boards.sort(compare);
 
   if (boards.length > 0) {

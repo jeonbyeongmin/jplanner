@@ -10,7 +10,7 @@ const schema = {
   events: {} as
     | { type: 'INITIALIZE'; value: string }
     | { type: 'CHANGE'; value: string }
-    | { type: 'SUBMIT'; id: string }
+    | { type: 'SUBMIT'; boardID: string }
     | { type: 'EDIT' }
     | { type: 'CANCEL' },
 };
@@ -74,7 +74,7 @@ export const boardTitleMachine = createMachine(
         context.boardRef.send({
           type: 'UPDATE_BOARD',
           payload: {
-            id: event.id,
+            boardID: event.boardID,
             title: context.pendingTitle,
           },
         });

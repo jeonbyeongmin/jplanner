@@ -2,19 +2,21 @@ import { getBoardPath } from '@/api/boards/paths';
 import { fetcher } from '@/utils/api-client';
 
 export type UpdateBoardParams = {
-  id: string;
+  boardID: string;
 };
 
 export type UpdateBoardBody = {
   title?: string;
 };
 
-export const updateBoardAPI = async (
+export async function updateBoardAPI(
   params: UpdateBoardParams,
   body: UpdateBoardBody,
-) => {
-  return await fetcher(getBoardPath(params.id), {
+) {
+  const { boardID } = params;
+
+  return await fetcher(getBoardPath(boardID), {
     method: 'PATCH',
     data: body,
   });
-};
+}
