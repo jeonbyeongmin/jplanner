@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 import { generateBoardsPath } from '@/api/boards/paths';
 
-const board = [
+export const boards = [
   // Retrieve boards
   rest.get(
     `${process.env.NEXT_PUBLIC_API_URL}/${generateBoardsPath()}`,
@@ -12,13 +12,11 @@ const board = [
         ctx.json([
           {
             id: '1',
-            name: 'Board 1',
-            description: 'Description 1',
+            title: 'Board 1',
           },
           {
             id: '2',
-            name: 'Board 2',
-            description: 'Description 2',
+            title: 'Board 2',
           },
         ]),
       );
@@ -35,8 +33,7 @@ const board = [
         ctx.status(200),
         ctx.json({
           id,
-          name: `Board ${id}`,
-          description: `Description ${id}`,
+          title: `Board ${id}`,
         }),
       );
     },
@@ -74,5 +71,3 @@ const board = [
     },
   ),
 ];
-
-export const handlers = [...board];
