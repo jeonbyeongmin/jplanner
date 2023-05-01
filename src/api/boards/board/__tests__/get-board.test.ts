@@ -7,8 +7,7 @@ describe('getBoardAPI 테스트', () => {
 
     expect(data).toEqual({
       id: '1',
-      name: 'Board 1',
-      description: 'Description 1',
+      title: 'Board 1',
     });
   });
 });

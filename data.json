@@ -41,44 +41,9 @@
       "createdAt": 1681814835481,
       "updatedAt": 1682579508123,
       "id": "btkpvtws4"
-    },
-    {
-      "title": "New board",
-      "createdAt": 1682580527430,
-      "updatedAt": 1682580527430,
-      "id": "61w5ldags"
-    },
-    {
-      "title": "New board",
-      "createdAt": 1682580527511,
-      "updatedAt": 1682580527511,
-      "id": "1wd3pgufd"
     }
   ],
   "taskLists": [
-    {
-      "id": "1",
-      "title": "To do",
-      "boardId": "c3z7zldac",
-      "order": 0,
-      "tasks": [
-        {
-          "id": "task1",
-          "taskListId": "1",
-          "title": "Task 1"
-        },
-        {
-          "id": "task2",
-          "taskListId": "1",
-          "title": "Task 2"
-        },
-        {
-          "id": "task3",
-          "taskListId": "1",
-          "title": "Task 3"
-        }
-      ]
-    },
     {
       "id": "2",
       "title": "In progress",
@@ -122,21 +87,6 @@
     }
   ],
   "tasks": [
-    {
-      "id": "task1",
-      "taskListId": "1",
-      "title": "Task 1"
-    },
-    {
-      "id": "task2",
-      "taskListId": "1",
-      "title": "Task 2"
-    },
-    {
-      "id": "task3",
-      "taskListId": "1",
-      "title": "Task 3"
-    },
     {
       "id": "task4",
       "taskListId": "2",
