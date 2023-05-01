@@ -10,7 +10,7 @@ export async function fetcher(
 ) {
   const headers: RequestInit['headers'] = {};
 
-  if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+  if (data) {
     headers['Content-Type'] = 'application/json';
   }
 

@@ -1,10 +1,12 @@
-import { getTaskListsPath } from '@/api/task-lists/path';
+import type { TaskListsPathQuery } from '@/api/task-lists/path';
+
+import { generateTaskListsPath } from '@/api/task-lists/path';
 import { fetcher } from '@/utils/api-client';
 
 export type GetTaskListsParams = {
-  boardID: string;
+  queries?: TaskListsPathQuery;
 };
 
-export const getTaskListsAPI = async ({ boardID }: GetTaskListsParams) => {
-  return await fetcher(getTaskListsPath(boardID));
+export const getTaskListsAPI = async ({ queries }: GetTaskListsParams) => {
+  return await fetcher(generateTaskListsPath({ queries }));
 };

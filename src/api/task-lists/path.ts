@@ -1,4 +1,11 @@
-export const getTaskListsPath = (boardID: string) =>
-  `taskLists?boardId=${boardID}`;
+import { createPathGenerator } from '@/utils/path';
 
-export const getTaskListPath = (id: string) => `taskLists/${id}`;
+export type TaskListsPathQuery = {
+  boardID?: string;
+};
+
+const TASK_LISTS_RESOURCE_NAME = 'taskLists';
+
+export const generateTaskListsPath = createPathGenerator<TaskListsPathQuery>(
+  TASK_LISTS_RESOURCE_NAME,
+);
