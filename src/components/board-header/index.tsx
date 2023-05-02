@@ -1,29 +1,25 @@
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { HiPlus } from 'react-icons/hi';
 
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu';
+import { EditingBoardHeader } from '@/components/board-header/editing-board-header';
+import { ViewingBoardHeader } from '@/components/board-header/viewing-board-header';
+import { SwitchCase } from '@/components/switch-case';
 import { BoardActorContext } from '@/contexts/board-actor-provider';
 import { boardTitleMachine } from '@/machines/board/board-title-machine';
-import {
-  Button,
-  Flex,
-  IconButton,
-  Input,
-  Text,
-  Tooltip,
-  useOutsideClick,
-} from '@chakra-ui/react';
+import { Flex, IconButton, Tooltip } from '@chakra-ui/react';
 import { useMachine } from '@xstate/react';
 
 interface Props {
   boardID: string;
   title: string;
+  handleAddButtonClick: () => void;
 }
 
-export function BoardHeader({ title, boardID }: Props) {
+export function BoardHeader({ title, boardID, handleAddButtonClick }: Props) {
   const router = useRouter();
-  const ref = useRef<HTMLDivElement>(null);
+
   const boardRef = BoardActorContext.useActorRef();
   const [current, send] = useMachine(boardTitleMachine, {
     context: { boardRef },
@@ -49,18 +45,9 @@ export function BoardHeader({ title, boardID }: Props) {
     });
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    } else if (e.key === 'Escape') {
-      handleCancel();
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    send({ type: 'CHANGE', value: e.target.value });
   };
-
-  useOutsideClick({
-    ref: ref,
-    handler: current.matches('editing') ? handleCancel : undefined,
-  });
 
   useEffect(() => {
     send({
@@ -82,57 +69,24 @@ export function BoardHeader({ title, boardID }: Props) {
       w='full'
       position='absolute'
     >
-      {current.matches('editing') ? (
-        <Flex flex={1} gap={2} ref={ref}>
-          <Input
-            variant='outline'
-            defaultValue={current.context.pendingTitle}
-            onChange={(e) => send('CHANGE', { value: e.target.value })}
-            onKeyDown={handleKeyDown}
-            fontSize='xl'
-            fontWeight='bold'
-            p={2}
-            autoFocus
-          />
-          <Button
-            onClick={handleSubmit}
-            isDisabled={!current.context.pendingTitle}
-          >
-            확인
-          </Button>
-          <Button onClick={handleCancel}>취소</Button>
-        </Flex>
-      ) : (
-        <Flex
-          p={2}
-          px={3}
-          _hover={{ bgColor: 'gray.100' }}
-          borderRadius='lg'
-          gap={2}
-          align='center'
-        >
-          {/* <Box
-            w={2}
-            h={2}
-            bgColor='green.400'
-            flexShrink={0}
-            borderRadius='full'
-          /> */}
-          <Tooltip label={title} openDelay={1000}>
-            <Text
-              fontSize='xl'
-              fontWeight='bold'
-              cursor='pointer'
-              userSelect='none'
-              onClick={handleEdit}
-              noOfLines={1}
-              color='blackAlpha.900'
-            >
-              {title}
-            </Text>
-          </Tooltip>
-        </Flex>
-      )}
+      <SwitchCase
+        value={current.value.toString()}
+        caseBy={{
+          editing: (
+            <EditingBoardHeader
+              pendingTitle={current.context.pendingTitle}
+              handChange={handleChange}
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+            />
+          ),
+          viewing: <ViewingBoardHeader title={title} handleEdit={handleEdit} />,
+        }}
+        defaultComponent={
+          <ViewingBoardHeader title={title} handleEdit={handleEdit} />
+        }
+      />
+
       <Flex gap={2}>
         <Tooltip label='새로운 작업 리스트 추가'>
           <IconButton
@@ -141,6 +95,7 @@ export function BoardHeader({ title, boardID }: Props) {
             variant='outline'
             fontSize={20}
             color='gray.500'
+            onClick={handleAddButtonClick}
           />
         </Tooltip>
         <BoardHeaderMenu onEdit={handleEdit} onDelete={handleDelete} />
