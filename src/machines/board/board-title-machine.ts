@@ -8,7 +8,6 @@ const schema = {
     boardRef: any;
   },
   events: {} as
-    | { type: 'INITIALIZE'; value: string }
     | { type: 'CHANGE'; value: string }
     | { type: 'SUBMIT'; boardID: string }
     | { type: 'EDIT' }
@@ -50,17 +49,6 @@ export const boardTitleMachine = createMachine(
             actions: 'resetTitle',
           },
         },
-      },
-    },
-    on: {
-      INITIALIZE: {
-        target: 'viewing',
-        actions: [
-          assign({
-            pendingTitle: (_, event) => event.value,
-            prev: (_, event) => event.value,
-          }),
-        ],
       },
     },
   },

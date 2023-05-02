@@ -6,9 +6,14 @@ import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 interface Props {
   listTitle?: string;
   numberOfTasks?: number;
+  handleEdit: () => void;
 }
 
-export function Viewing({ listTitle, numberOfTasks }: Props) {
+export function ViewingTaskListHeader({
+  listTitle,
+  numberOfTasks,
+  handleEdit,
+}: Props) {
   return (
     <>
       <Flex align='center' gap={1}>
@@ -19,6 +24,7 @@ export function Viewing({ listTitle, numberOfTasks }: Props) {
           borderRadius='md'
           userSelect='none'
           cursor='pointer'
+          onClick={handleEdit}
         >
           <Text wordBreak='break-all' noOfLines={1} fontWeight='semibold'>
             {listTitle}
@@ -43,7 +49,7 @@ export function Viewing({ listTitle, numberOfTasks }: Props) {
             _groupHover={{ opacity: 1 }}
           />
         </Tooltip>
-        <TaskListHeaderMenu />
+        <TaskListHeaderMenu handleEdit={handleEdit} />
       </Flex>
     </>
   );

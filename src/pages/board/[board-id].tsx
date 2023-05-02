@@ -29,6 +29,7 @@ export default function BoardDetail() {
       overflowX='auto'
     >
       <BoardHeader
+        key={board?.title}
         title={board?.title ?? ''}
         boardID={boardID}
         handleAddButtonClick={isAddingTaskListHandlers.setTrue}

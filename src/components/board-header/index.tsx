@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { HiPlus } from 'react-icons/hi';
 
 import { BoardHeaderMenu } from '@/components/board-header/board-header-menu';
@@ -19,10 +18,14 @@ interface Props {
 
 export function BoardHeader({ title, boardID, handleAddButtonClick }: Props) {
   const router = useRouter();
-
   const boardRef = BoardActorContext.useActorRef();
+
   const [current, send] = useMachine(boardTitleMachine, {
-    context: { boardRef },
+    context: {
+      boardRef,
+      pendingTitle: title,
+      prev: title,
+    },
   });
 
   const handleSubmit = () => {
@@ -41,20 +44,13 @@ export function BoardHeader({ title, boardID, handleAddButtonClick }: Props) {
     boardRef.send({
       type: 'DELETE_BOARD',
       payload: { boardID },
-      navigateToBoard: (id) => router.push(`/board/${id}`),
+      navigateToBoard: () => router.push(`/board`),
     });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     send({ type: 'CHANGE', value: e.target.value });
   };
-
-  useEffect(() => {
-    send({
-      type: 'INITIALIZE',
-      value: title,
-    });
-  }, [title, send]);
 
   return (
     <Flex

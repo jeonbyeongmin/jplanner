@@ -12,7 +12,7 @@ export function Sidebar() {
     boardActorRef.send({
       type: 'ADD_BOARD',
       payload: { title: 'New board' },
-      navigateToBoard: (boardID: string) => router.push(`/board/${boardID}`),
+      navigateToBoard: () => router.push(`/board`),
     });
   };
 

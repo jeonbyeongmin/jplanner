@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import type { TaskListHeaderState } from '@/reducers/task-list-header.reducer';
+
+import { useImmerReducer } from 'use-immer';
 
 import { SwitchCase } from '@/components/switch-case';
-import { Viewing } from '@/components/task-list-header/viewing';
+import { EditingTaskListHeader } from '@/components/task-list-header/editing-task-list-header';
+import { ViewingTaskListHeader } from '@/components/task-list-header/viewing-task-list-header';
+import { taskListHeaderReducer } from '@/reducers/task-list-header.reducer';
 import { Flex } from '@chakra-ui/react';
-
-type Status = 'creating' | 'editing' | 'viewing';
 
 interface Props {
   listTitle?: string;
   numberOfTasks?: number;
-  initialStatus?: Status;
+  initialStatus?: TaskListHeaderState;
 }
 
 export function TaskListHeader({
@@ -17,7 +19,29 @@ export function TaskListHeader({
   numberOfTasks,
   initialStatus,
 }: Props) {
-  const [status, setStatus] = useState<Status>(initialStatus || 'viewing');
+  const [current, dispatch] = useImmerReducer(taskListHeaderReducer, {
+    state: initialStatus ?? 'viewing',
+    context: {
+      pendingTitle: listTitle ?? '',
+      prev: listTitle ?? '',
+    },
+  });
+
+  const handleEdit = () => {
+    dispatch({ type: 'EDIT' });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'CHANGE', payload: e.target.value });
+  };
+
+  const handleCancel = () => {
+    dispatch({ type: 'CANCEL' });
+  };
+
+  const handleSubmit = () => {
+    dispatch({ type: 'SUBMIT' });
+  };
 
   return (
     <Flex
@@ -28,17 +52,24 @@ export function TaskListHeader({
       gap={2}
     >
       <SwitchCase
-        value={status}
+        value={current.state}
         caseBy={{
           viewing: (
-            <Viewing listTitle={listTitle} numberOfTasks={numberOfTasks} />
+            <ViewingTaskListHeader
+              listTitle={listTitle}
+              numberOfTasks={numberOfTasks}
+              handleEdit={handleEdit}
+            />
           ),
-          // creating: <TypeB />,
-          // editing: <TypeC />,
+          editing: (
+            <EditingTaskListHeader
+              pendingTitle={current.context.pendingTitle}
+              handChange={handleChange}
+              handleCancel={handleCancel}
+              handleSubmit={handleSubmit}
+            />
+          ),
         }}
-        defaultComponent={
-          <Viewing listTitle={listTitle} numberOfTasks={numberOfTasks} />
-        }
       />
     </Flex>
   );

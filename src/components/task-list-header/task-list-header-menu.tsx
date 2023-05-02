@@ -11,7 +11,11 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
-export function TaskListHeaderMenu() {
+interface Props {
+  handleEdit: () => void;
+}
+
+export function TaskListHeaderMenu({ handleEdit }: Props) {
   const [isOpen, handleToggle] = useToggle();
 
   return (
@@ -34,7 +38,11 @@ export function TaskListHeaderMenu() {
         _groupHover={{ opacity: 1 }}
       />
       <MenuList zIndex='dropdown'>
-        <MenuItem icon={<FiEdit size={16} />} iconSpacing={5}>
+        <MenuItem
+          icon={<FiEdit size={16} />}
+          iconSpacing={5}
+          onClick={handleEdit}
+        >
           리스트 제목 수정
         </MenuItem>
         <MenuItem icon={<FiTrash2 size={16} />} iconSpacing={5}>

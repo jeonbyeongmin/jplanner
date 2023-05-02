@@ -1,4 +1,3 @@
-import { TaskListHeader } from '@/components/task-list-header';
 import { Flex } from '@chakra-ui/react';
 
 export function NewTaskList() {
@@ -14,9 +13,7 @@ export function NewTaskList() {
       position='relative'
       alignSelf='start'
     >
-      <Flex direction='column' gap={5} p={3} pt={4} w='full'>
-        <TaskListHeader initialStatus='creating' />
-      </Flex>
+      <Flex direction='column' gap={5} p={3} pt={4} w='full'></Flex>
     </Flex>
   );
 }
