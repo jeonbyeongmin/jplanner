@@ -156,7 +156,12 @@ export const boardMachine = createMachine(
               }
 
               return context.boards.map((item) => {
-                return item.id === event.payload.boardID ? event.payload : item;
+                return item.id === event.payload.boardID
+                  ? {
+                      title: event.payload.title,
+                      id: event.payload.boardID,
+                    }
+                  : item;
               });
             },
             rollbackOnError: true,
@@ -203,7 +208,7 @@ const updateBoard = async (
   }
 
   const { boardID, title } = board;
-  const { data } = await updateBoardAPI({ boardID }, { title });
+  const data = await updateBoardAPI({ boardID }, { title });
 
   if (boards) {
     const index = boards.findIndex((item) => item.id === data.id);
