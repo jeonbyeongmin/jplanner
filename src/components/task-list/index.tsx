@@ -1,7 +1,7 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { Task } from '@/components/task';
-import { TaskListHeader } from '@/components/task-list/task-list-header';
+import { TaskListHeader } from '@/components/task-list-header';
 import { Flex } from '@chakra-ui/react';
 
 import type { TaskType } from '@/types/task.type';

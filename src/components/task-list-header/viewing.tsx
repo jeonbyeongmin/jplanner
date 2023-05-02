@@ -1,22 +1,16 @@
 import { HiPlus } from 'react-icons/hi';
 
-import { TaskListMenu } from '@/components/task-list/task-list-menu';
+import { TaskListHeaderMenu } from '@/components/task-list-header/task-list-header-menu';
 import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 
 interface Props {
-  listTitle: string;
+  listTitle?: string;
   numberOfTasks?: number;
 }
 
-export function TaskListHeader({ listTitle, numberOfTasks }: Props) {
+export function Viewing({ listTitle, numberOfTasks }: Props) {
   return (
-    <Flex
-      bgColor='white'
-      borderRadius='md'
-      align='center'
-      justify='space-between'
-      gap={2}
-    >
+    <>
       <Flex align='center' gap={1}>
         <Flex
           _hover={{ bgColor: 'gray.100' }}
@@ -49,8 +43,8 @@ export function TaskListHeader({ listTitle, numberOfTasks }: Props) {
             _groupHover={{ opacity: 1 }}
           />
         </Tooltip>
-        <TaskListMenu />
+        <TaskListHeaderMenu />
       </Flex>
-    </Flex>
+    </>
   );
 }

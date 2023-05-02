@@ -11,7 +11,7 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
-export function TaskListMenu() {
+export function TaskListHeaderMenu() {
   const [isOpen, handleToggle] = useToggle();
 
   return (

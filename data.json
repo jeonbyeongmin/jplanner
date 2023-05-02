@@ -45,24 +45,47 @@
   ],
   "taskLists": [
     {
+      "id": "1",
+      "title": "To do",
+      "order": 0,
+      "boardID": "c3z7zldac",
+      "tasks": [
+        {
+          "id": "task1",
+          "taskListID": "1",
+          "title": "Task 1"
+        },
+        {
+          "id": "task2",
+          "taskListID": "1",
+          "title": "Task 2"
+        },
+        {
+          "id": "task3",
+          "taskListID": "1",
+          "title": "Task 3"
+        }
+      ]
+    },
+    {
       "id": "2",
       "title": "In progress",
-      "boardId": "c3z7zldac",
+      "boardID": "c3z7zldac",
       "order": 1,
       "tasks": [
         {
           "id": "task4",
-          "taskListId": "2",
+          "taskListID": "2",
           "title": "Task 4"
         },
         {
           "id": "task5",
-          "taskListId": "2",
+          "taskListID": "2",
           "title": "Task 5"
         },
         {
           "id": "task6",
-          "taskListId": "2",
+          "taskListID": "2",
           "title": "Task 6"
         }
       ]
@@ -70,47 +93,20 @@
     {
       "id": "3",
       "title": "Done",
-      "boardId": "c3z7zldac",
+      "boardID": "c3z7zldac",
       "order": 2,
       "tasks": [
         {
           "id": "task7",
-          "taskListId": "3",
+          "taskListID": "3",
           "title": "Task 7"
         },
         {
           "id": "task8",
-          "taskListId": "3",
+          "taskListID": "3",
           "title": "Task 8"
         }
       ]
-    }
-  ],
-  "tasks": [
-    {
-      "id": "task4",
-      "taskListId": "2",
-      "title": "Task 4"
-    },
-    {
-      "id": "task5",
-      "taskListId": "2",
-      "title": "Task 5"
-    },
-    {
-      "id": "task6",
-      "taskListId": "2",
-      "title": "Task 6"
-    },
-    {
-      "id": "task7",
-      "taskListId": "3",
-      "title": "Task 7"
-    },
-    {
-      "id": "task8",
-      "taskListId": "3",
-      "title": "Task 8"
     }
   ]
 }

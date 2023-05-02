@@ -1,17 +1,19 @@
-import { useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
-import { TaskList } from '@/components/task-list';
-import { Flex } from '@chakra-ui/react';
-
 import type { TaskListType } from '@/types/task-list.type';
 import type { DropResult } from 'react-beautiful-dnd';
 
+import { useEffect, useState } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
+import { NewTaskList } from '@/components/new-task-list';
+import { TaskList } from '@/components/task-list';
+import { Flex } from '@chakra-ui/react';
+
 interface Props {
   taskLists: TaskListType[];
+  isAddingTaskList: boolean;
 }
 
-export function BoardContent({ taskLists: list }: Props) {
+export function BoardContent({ taskLists: list, isAddingTaskList }: Props) {
   const [taskLists, setTaskLists] = useState<TaskListType[]>(list);
 
   const reorder = (
@@ -88,6 +90,10 @@ export function BoardContent({ taskLists: list }: Props) {
     }
   };
 
+  useEffect(() => {
+    setTaskLists(list);
+  }, [list]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='tasklist' direction='horizontal' type='tasklist'>
@@ -120,6 +126,8 @@ export function BoardContent({ taskLists: list }: Props) {
           </Flex>
         )}
       </Droppable>
+
+      {isAddingTaskList && <NewTaskList />}
     </DragDropContext>
   );
 }

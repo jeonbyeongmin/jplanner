@@ -9,31 +9,6 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-/** Boards */
-
-/** TaskLists */
-
-server.get('/taskLists', (req, res) => {
-  const boardID = req.query.boardID;
-
-  const taskLists = boardID
-    ? router.db.get('taskLists').filter({ boardID }).value()
-    : router.db.get('taskLists').value();
-
-  const tasks = router.db
-    .get('tasks')
-    .filter((task) => taskLists.some((t) => t.id === task.taskListId))
-    .value();
-
-  taskLists.forEach((taskList) => {
-    taskList.tasks = tasks.filter((task) => task.taskListId === taskList.id);
-  });
-
-  res.json(taskLists);
-});
-
-/** Tasks */
-
 /** All */
 
 server.use((req, res, next) => {
